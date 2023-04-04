@@ -1,0 +1,52 @@
+exclude: ^(.bzr|\.direnv|\.eggs|\.git|\.hg|\.mypy_cache|\.nox|\.pants\.d|\.svn|\.tox|\.venv|_build|buck-out|build|dist|node_modules|venv|\.idea|dockerdata|static|.*\b(migrations)\b.*)
+repos:
+-   repo: https://github.com/timothycrosley/isort
+    rev: 5.12.0
+    hooks:
+    -   id: isort
+-   repo: https://github.com/ambv/black
+    rev: 23.1.0
+    hooks:
+    - id: black
+      language_version: python3.10
+      args: [--target-version=py310]
+-   repo: https://github.com/pycqa/flake8
+    rev: 6.0.0
+    hooks:
+    - id: flake8
+      language_version: python3.10
+      additional_dependencies:
+        - flake8-bugbear==22.10.27
+        - flake8-builtins==2.0.1
+        - flake8-comprehensions==3.10.1
+        - flake8-tidy-imports==4.8.0
+
+-   repo: https://github.com/seddonym/import-linter
+    rev: v1.8.0
+    hooks:
+    - id: import-linter
+      language_version: python3.10
+      additional_dependencies: ['toml']
+-   repo: local
+    hooks:
+      - id: check-translations
+        stages: [push]
+        verbose: true
+        name: check-translations
+        entry: make checkmessages
+        language: system
+        pass_filenames: false
+-  repo: local
+   hooks:
+     - id: check-generated-schemas
+       stages: [push]
+       verbose: true
+       name: check-generated-schemas
+       entry: make check-generated-schemas
+       language: system
+       pass_filenames: false
+-  repo: https://github.com/pre-commit/pre-commit-hooks
+   rev: v4.4.0
+   hooks:
+     - id: mixed-line-ending
+       args: ['--fix=lf']

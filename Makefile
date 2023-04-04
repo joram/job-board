@@ -4,12 +4,17 @@ local_setup_linux:
 
 
 zip:
-	cd server && pip3 install --target ./libs --requirement requirements.txt
-	cd server && zip -gq lambda.zip main.py
-	mv ./server/lambda.zip ./infra/modules/api-gateway
+	pip install --upgrade pip
+	cd server && pip3 install --target ./lib/ --requirement requirements.txt
+	rm -rf ./server/lib/*dist-info
+	cd server && zip -r lambda.zip ./*.py
+	touch ./server/lib/__init__.py
+	cd server/lib && zip -r9 ../lambda.zip ./*
+	mv ./server/lambda.zip ./cdk/job_board/api/lambda.zip
+	chmod 755 ./cdk/job_board/api/lambda.zip
 
 plan:
-	cd infra/env/dev && terraform plan
+	cd cdk && cdktf plan
 
-deploy:
-	cd infra/env/dev && terraform apply
+apply:
+	cd cdk && cdktf apply
