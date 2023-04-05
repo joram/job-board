@@ -6,18 +6,44 @@ class JobBoardStack(Stack):
     def __init__(self, scope: Construct, uid: str, **kwargs) -> None:
         super().__init__(scope, uid, **kwargs)
 
-        user_table = aws_dynamodb.Table(self, "Users", partition_key={"name": "path", "type": aws_dynamodb.AttributeType.STRING})
+        user_table = aws_dynamodb.Table(
+            self,
+            "Users",
+            partition_key={
+                "name": "id",
+                "type": aws_dynamodb.AttributeType.STRING,
+            },
+            table_name="jb-users",
+        )
 
         auth_token_table = aws_dynamodb.Table(
-            self, "AuthTokens", partition_key={"name": "path", "type": aws_dynamodb.AttributeType.STRING}
+            self,
+            "AuthTokens",
+            partition_key={
+                "name": "id",
+                "type": aws_dynamodb.AttributeType.STRING,
+            },
+            table_name="jb-auth_tokens",
         )
 
         company_table = aws_dynamodb.Table(
-            self, "Companies", partition_key={"name": "path", "type": aws_dynamodb.AttributeType.STRING}
+            self,
+            "Companies",
+            partition_key={
+                "name": "id",
+                "type": aws_dynamodb.AttributeType.STRING,
+            },
+            table_name="jb-companies",
         )
 
         posting_table = aws_dynamodb.Table(
-            self, "Postings", partition_key={"name": "path", "type": aws_dynamodb.AttributeType.STRING}
+            self,
+            "Postings",
+            partition_key={
+                "name": "id",
+                "type": aws_dynamodb.AttributeType.STRING,
+            },
+            table_name="jb-job_postings",
         )
 
         my_lambda = aws_lambda.Function(
