@@ -21,30 +21,6 @@ repos:
         - flake8-comprehensions==3.10.1
         - flake8-tidy-imports==4.8.0
 
--   repo: https://github.com/seddonym/import-linter
-    rev: v1.8.0
-    hooks:
-    - id: import-linter
-      language_version: python3.10
-      additional_dependencies: ['toml']
--   repo: local
-    hooks:
-      - id: check-translations
-        stages: [push]
-        verbose: true
-        name: check-translations
-        entry: make checkmessages
-        language: system
-        pass_filenames: false
--  repo: local
-   hooks:
-     - id: check-generated-schemas
-       stages: [push]
-       verbose: true
-       name: check-generated-schemas
-       entry: make check-generated-schemas
-       language: system
-       pass_filenames: false
 -  repo: https://github.com/pre-commit/pre-commit-hooks
    rev: v4.4.0
    hooks:

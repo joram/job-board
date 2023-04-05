@@ -1,8 +1,4 @@
 
-local_setup_linux:
-	sudo snap install terraform --classic
-
-
 zip:
 	pip install --upgrade pip
 	cd server && pip3 install --target ./lib/ --requirement requirements.txt
@@ -10,11 +6,13 @@ zip:
 	cd server && zip -r lambda.zip ./*.py
 	touch ./server/lib/__init__.py
 	cd server/lib && zip -r9 ../lambda.zip ./*
-	mv ./server/lambda.zip ./cdk/job_board/api/lambda.zip
-	chmod 755 ./cdk/job_board/api/lambda.zip
+	mv ./server/lambda.zip ./cdk/lambda.zip
 
-plan:
-	cd cdk && cdktf plan
+synth:
+	cd cdk && cdk synth
 
-apply:
-	cd cdk && cdktf apply
+diff:
+	cd cdk && cdk diff
+
+deploy:
+	cd cdk && cdk deploy

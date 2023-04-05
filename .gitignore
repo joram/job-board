@@ -132,3 +132,4 @@ infra/modules/api-gateway/lambda.zip
 
 # editors
 .idea
+/cdk/lambda.zip
