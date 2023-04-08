@@ -20,18 +20,20 @@ export default function SlackAuth() {
             }
         }).then((response) =>  {
             if(response.status !== 200){
-                console.log("failed")
+                console.log("failed", response.json())
                 navigate('/auth/failure');
+                return null
             }
             return response.json()
         }).then(response => {
-            console.log("success", response)
-            sessionStorage.setItem("user", JSON.stringify(response.user));
-            sessionStorage.setItem("token", response.token);
-            navigate('/home');
+            if(response !== null){
+                console.log("success", response)
+                sessionStorage.setItem("user", JSON.stringify(response));
+                navigate('/home');
+            }
         })
     })
   return <>
-    authenticating with server... {code}
+    authenticating with server...
   </>
 }

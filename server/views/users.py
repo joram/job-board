@@ -2,10 +2,9 @@ import datetime
 from typing import Optional
 
 import requests
+import settings
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-
-import settings
 
 router = APIRouter()
 
@@ -16,11 +15,7 @@ class User(BaseModel):
     name: str
     created_at: datetime.datetime
     updated_at: datetime.datetime
-
-
-class LoginResponse(BaseModel):
-    token: str
-    user: User
+    access_token: str
 
 
 class AuthedUser(BaseModel):
@@ -50,7 +45,7 @@ class SlackOpenIdConnectUserInfo(BaseModel):
 
 
 @router.get("/login", tags=["public"])
-async def get_login(code: str) -> LoginResponse:
+async def get_login(code: str) -> User:
     # Get the authed user
     response = requests.post(
         "https://slack.com/api/oauth.v2.access",
@@ -84,13 +79,11 @@ async def get_login(code: str) -> LoginResponse:
         raise HTTPException(status_code=403, detail="Slack API Error")
     user_info = SlackOpenIdConnectUserInfo(**response.json())
 
-    return LoginResponse(
-        user=User(
-            id=auth_response.authed_user.id,
-            name=user_info.name,
-            profile_picture=user_info.picture,
-            created_at=datetime.datetime.now(),
-            updated_at=datetime.datetime.now(),
-        ),
-        token="token",
+    return User(
+        id=auth_response.authed_user.id,
+        name=user_info.name,
+        profile_picture=user_info.picture,
+        created_at=datetime.datetime.now(),
+        updated_at=datetime.datetime.now(),
+        access_token="token",
     )

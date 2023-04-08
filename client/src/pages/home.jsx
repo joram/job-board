@@ -1,9 +1,13 @@
 import {Image} from "semantic-ui-react";
+import {getLocalUser} from "../utils";
+import {redirect} from "react-router-dom";
 
 export default function Home(){
-    let user = JSON.parse(sessionStorage.getItem("user"))
-    let token = sessionStorage.getItem("token")
-    console.log("user", user)
+    let user = getLocalUser()
+    if(user === null){
+        redirect("/login")
+    }
+
     return (
         <div>
             <Image src={user.profile_picture} avatar />

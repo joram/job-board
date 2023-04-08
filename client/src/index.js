@@ -13,6 +13,12 @@ import 'semantic-ui-css/semantic.min.css'
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <Home />,
+  }, {
+    path: "/home",
+    element: <Home />,
+  }, {
+    path: "/login",
     element: <Login/>,
   }, {
     path: "/home",
