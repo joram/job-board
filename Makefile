@@ -35,7 +35,7 @@ update_client:
 		openapitools/openapi-generator-cli:latest \
 		generate \
 		-i /local/openapi.json \
-		-g typescript-axios \
+		-g javascript-axios \
 		--additional-properties=supportsES6=true  \
-		-o /local/client/client
+		-o /local/client/src/api_client
 	rm openapi.json

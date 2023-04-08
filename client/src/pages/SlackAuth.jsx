@@ -1,7 +1,7 @@
 import {useSearchParams} from "react-router-dom";
 import {serverUrl} from "../utils";
 import React, {useEffect} from "react";
-import {Router, useNavigate} from "react-router";
+import {useNavigate} from "react-router";
 
 export default function SlackAuth() {
     let navigate = useNavigate();
