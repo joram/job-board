@@ -48,7 +48,7 @@ class JobBoardStack(Stack):
 
         my_lambda = aws_lambda.Function(
             self,
-            "HelloHandler",
+            "APICallHandler",
             runtime=aws_lambda.Runtime.PYTHON_3_7,
             code=aws_lambda.Code.from_asset("./lambda.zip"),
             handler="main.handler",
