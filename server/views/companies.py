@@ -1,10 +1,13 @@
 from typing import List
 
-from app import app
-from db.models import Company as DBCompany, JobPosting as DBJobPosting
+from db.models import Company as DBCompany
+from db.models import JobPosting as DBJobPosting
+from fastapi import APIRouter
 from lib.fastapi import Depends
-from models import JobPosting, Company
+from models import Company, JobPosting
 from utils import verify_auth_token
+
+router = APIRouter()
 
 example_job_posting = JobPosting(
     id="job_posting_id",
@@ -33,19 +36,35 @@ example_company = Company(
 )
 
 
-@app.get("/company/{company_id}", tags=["public"])
-def get_company(company_id: str) -> Company:
+@router.get("/companies", tags=["public"])
+async def get_companies() -> List[Company]:
+    return [example_company]
+
+
+@router.post("/company", tags=["authentication required"])
+async def post_company() -> Company:
+    return example_company
+
+
+@router.post("/company/{company_id}", tags=["authentication required"])
+async def post_update_company(company_id) -> Company:
+    return example_company
+
+
+@router.get("/company/{company_id}", tags=["public"])
+async def get_company(company_id: str) -> Company:
     db_company = DBCompany.get(company_id)
 
     return db_company.to_model()
 
 
-@app.get("/company/{company_id}/postings", tags=["public"])
-def get_company_postings(company_id: str) -> List[JobPosting]:
-    postings = DBJobPosting.query(company_id)
+@router.get("/company/{company_id}/postings", tags=["public"])
+async def get_company_postings(company_id: str) -> List[JobPosting]:
+    # postings = DBJobPosting.query(company_id)
 
     return [example_job_posting]
 
-@app.get("/user/{user_id}/companies", tags=["authentication required"])
-def get_companies(user_id:str, auth_token=Depends(verify_auth_token)) -> List[Company]:
+
+@router.get("/user/{user_id}/companies", tags=["authentication required"])
+async def get_companies(user_id: str, auth_token=Depends(verify_auth_token)) -> List[Company]:
     return [example_company]
