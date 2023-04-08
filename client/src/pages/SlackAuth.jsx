@@ -1,5 +1,5 @@
 import {useSearchParams} from "react-router-dom";
-import {serverUrl} from "./utils";
+import {serverUrl} from "../utils";
 import React, {useEffect} from "react";
 import {Router, useNavigate} from "react-router";
 
@@ -19,13 +19,16 @@ export default function SlackAuth() {
                 "code": code
             }
         }).then((response) =>  {
-            if (response.status === 200) {
-                console.log("success")
-                navigate('/home');
-            } else {
+            if(response.status !== 200){
                 console.log("failed")
                 navigate('/auth/failure');
             }
+            return response.json()
+        }).then(response => {
+            console.log("success", response)
+            sessionStorage.setItem("user", JSON.stringify(response.user));
+            sessionStorage.setItem("token", response.token);
+            navigate('/home');
         })
     })
   return <>
