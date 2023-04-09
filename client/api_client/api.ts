@@ -196,25 +196,6 @@ export interface LocationInner {
 /**
  * 
  * @export
- * @interface LoginResponse
- */
-export interface LoginResponse {
-    /**
-     * 
-     * @type {string}
-     * @memberof LoginResponse
-     */
-    'token': string;
-    /**
-     * 
-     * @type {User}
-     * @memberof LoginResponse
-     */
-    'user': User;
-}
-/**
- * 
- * @export
  * @interface User
  */
 export interface User {
@@ -248,6 +229,12 @@ export interface User {
      * @memberof User
      */
     'updated_at': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    'access_token': string;
 }
 /**
  * 
@@ -867,7 +854,7 @@ export const PublicApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getLoginLoginGet(code: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LoginResponse>> {
+        async getLoginLoginGet(code: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getLoginLoginGet(code, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -938,7 +925,7 @@ export const PublicApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLoginLoginGet(code: string, options?: any): AxiosPromise<LoginResponse> {
+        getLoginLoginGet(code: string, options?: any): AxiosPromise<User> {
             return localVarFp.getLoginLoginGet(code, options).then((request) => request(axios, basePath));
         },
         /**
