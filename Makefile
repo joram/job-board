@@ -27,7 +27,7 @@ CURRENT_UID := $(shell id -u)
 CURRENT_GID := $(shell id -g)
 VERSION=$(shell date '+%Y-%m-%d')
 update_client:
-	rm -rf ./client
+	rm -rf ./client/api_client
 	curl http://localhost:5000/openapi.json -o openapi.json
 	docker run --rm \
 		--user "${CURRENT_UID}:${CURRENT_GID}" \
@@ -35,7 +35,8 @@ update_client:
 		openapitools/openapi-generator-cli:latest \
 		generate \
 		-i /local/openapi.json \
-		-g javascript-axios \
-		--additional-properties=supportsES6=true  \
-		-o /local/client/src/api_client
+		-g typescript-axios \
+		--additional-properties=npmName=job-board-sdk  \
+		-o /local/client/api_client
 	rm openapi.json
+	cd client && npm install ./api_client
