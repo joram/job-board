@@ -1,6 +1,5 @@
 import datetime
 import enum
-from typing import Optional
 
 from pydantic import BaseModel as PydanticBaseModel
 
@@ -31,9 +30,18 @@ class AuthToken(BaseModel):
     expires_at: datetime.datetime
 
 
+class Company(BaseModel):
+    user_id: str
+
+    name: str
+    description: str
+    logo_url: str
+    website_url: str
+
+
 class JobPosting(BaseModel):
     user_id: str
-    company_id: Optional[str]
+    company: Company
 
     job_title: str
     description: str
@@ -42,12 +50,3 @@ class JobPosting(BaseModel):
     min_salary: int
     max_salary: int
     salary_currency: Currency
-
-
-class Company(BaseModel):
-    user_id: str
-
-    name: str
-    description: str
-    logo_url: str
-    website_url: str

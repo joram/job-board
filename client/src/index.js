@@ -5,24 +5,18 @@ import reportWebVitals from './reportWebVitals';
 
 import {createBrowserRouter, RouterProvider,} from "react-router-dom";
 import "./index.css";
-import Login from "./pages/Login";
 import SlackAuth from "./pages/SlackAuth";
-import Home from "./pages/home";
 import 'semantic-ui-css/semantic.min.css'
+import Companies from "./pages/Companies";
+import JobPostings from "./pages/JobPostings";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <JobPostings />,
   }, {
-    path: "/home",
-    element: <Home />,
-  }, {
-    path: "/login",
-    element: <Login/>,
-  }, {
-    path: "/home",
-    element: <Home />,
+    path: "/companies",
+    element: <Companies />,
   }, {
     path: "/api/v1/auth/slack",
     element: <SlackAuth />,

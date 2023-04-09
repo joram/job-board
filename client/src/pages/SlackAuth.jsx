@@ -29,7 +29,7 @@ export default function SlackAuth() {
             if(response !== null){
                 console.log("success", response)
                 sessionStorage.setItem("user", JSON.stringify(response));
-                navigate('/home');
+                navigate('/');
             }
         })
     })
