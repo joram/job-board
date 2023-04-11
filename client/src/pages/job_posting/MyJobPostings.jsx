@@ -1,16 +1,16 @@
-import React, {useEffect} from 'react'
-import JobPosting, {JobPostingPlaceholder} from "../components/JobPostingCard";
-import {useState} from "react";
-import {get_all_companies, get_all_job_postings} from "../api";
-import {Card, Container} from "semantic-ui-react";
-import MainMenu from "../components/MainMenu";
+import React, {useEffect, useState} from 'react'
+import JobPosting, {JobPostingPlaceholder} from "../../components/JobPostingCard";
+import {get_my_job_postings} from "../../api";
+import {Divider, Button, Card, Container} from "semantic-ui-react";
+import MainMenu from "../../components/MainMenu";
+import {Link} from "react-router-dom";
 
-export default function JobPostings(){
+export default function MyJobPostings(){
     let [loading, setLoading] = useState(true)
     let [jobPostings, setJobPostings] = useState([])
 
     useEffect(() => {
-        get_all_job_postings().then(job_postings => {
+        get_my_job_postings().then(job_postings => {
             setJobPostings(job_postings)
             setLoading(false)
         })
@@ -32,6 +32,10 @@ export default function JobPostings(){
                     return <JobPosting key={"posting_"+i++} data={job_posting} />
                 })}
             </Card.Group>
+        </Container>
+        <Divider/>
+        <Container textAlign="center">
+            <Button as={Link} to="/job_posting/create" positive>Create</Button>
         </Container>
     </>
 

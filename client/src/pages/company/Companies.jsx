@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react'
-import JobPosting, {JobPostingPlaceholder} from "../components/JobPostingCard";
+import JobPosting, {JobPostingPlaceholder} from "../../components/JobPostingCard";
 import {useState} from "react";
-import {get_all_companies, get_all_job_postings} from "../api";
+import {get_all_companies, get_all_job_postings} from "../../api";
 import {Card, Container} from "semantic-ui-react";
-import CompanyCard from "../components/CompanyCard";
-import MainMenu from "../components/MainMenu";
+import CompanyCard from "../../components/CompanyCard";
+import MainMenu from "../../components/MainMenu";
 
 export default function Companies(){
     let [loading, setLoading] = useState(true)
@@ -18,11 +18,13 @@ export default function Companies(){
     }, [])
 
     if(loading) {
-        return <Container>
-            <h1>Job Postings</h1>
-            <JobPostingPlaceholder/>
-            <JobPostingPlaceholder/>
-        </Container>
+        return <>
+        <MainMenu highlight={"Companies"}/>
+            <Container>
+                <JobPostingPlaceholder/>
+                <JobPostingPlaceholder/>
+            </Container>
+        </>
     }
 
     let i = 0;

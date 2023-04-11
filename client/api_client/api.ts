@@ -360,6 +360,45 @@ export const AuthenticationRequiredApiAxiosParamCreator = function (configuratio
         },
         /**
          * 
+         * @summary Get My Postings
+         * @param {string} userId 
+         * @param {string} [authToken] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMyPostingsUserUserIdPostingsGet: async (userId: string, authToken?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('getMyPostingsUserUserIdPostingsGet', 'userId', userId)
+            const localVarPath = `/user/{user_id}/postings`
+                .replace(`{${"user_id"}}`, encodeURIComponent(String(userId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (authToken != null) {
+                localVarHeaderParameter['auth-token'] = String(authToken);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Post Company
          * @param {Company} company 
          * @param {string} [authToken] 
@@ -521,6 +560,18 @@ export const AuthenticationRequiredApiFp = function(configuration?: Configuratio
         },
         /**
          * 
+         * @summary Get My Postings
+         * @param {string} userId 
+         * @param {string} [authToken] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getMyPostingsUserUserIdPostingsGet(userId: string, authToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<JobPosting>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getMyPostingsUserUserIdPostingsGet(userId, authToken, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Post Company
          * @param {Company} company 
          * @param {string} [authToken] 
@@ -590,6 +641,17 @@ export const AuthenticationRequiredApiFactory = function (configuration?: Config
         },
         /**
          * 
+         * @summary Get My Postings
+         * @param {string} userId 
+         * @param {string} [authToken] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMyPostingsUserUserIdPostingsGet(userId: string, authToken?: string, options?: any): AxiosPromise<Array<JobPosting>> {
+            return localVarFp.getMyPostingsUserUserIdPostingsGet(userId, authToken, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Post Company
          * @param {Company} company 
          * @param {string} [authToken] 
@@ -656,6 +718,19 @@ export class AuthenticationRequiredApi extends BaseAPI {
      */
     public getMyCompaniesUserUserIdCompaniesGet(userId: string, authToken?: string, options?: AxiosRequestConfig) {
         return AuthenticationRequiredApiFp(this.configuration).getMyCompaniesUserUserIdCompaniesGet(userId, authToken, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get My Postings
+     * @param {string} userId 
+     * @param {string} [authToken] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthenticationRequiredApi
+     */
+    public getMyPostingsUserUserIdPostingsGet(userId: string, authToken?: string, options?: AxiosRequestConfig) {
+        return AuthenticationRequiredApiFp(this.configuration).getMyPostingsUserUserIdPostingsGet(userId, authToken, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

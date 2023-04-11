@@ -30,6 +30,12 @@ export async function get_my_companies() {
     })
 }
 
+export async function get_my_job_postings() {
+    return privateApi.getMyPostingsUserUserIdPostingsGet(user.id, user.access_token).then((res) => {
+        return res.data
+    })
+}
+
 export async function create_company(company) {
     return privateApi.postCompanyCompanyPost(company, user.access_token).then((res) => {
         return res.data

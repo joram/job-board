@@ -1,8 +1,5 @@
 from typing import List
 
-from fastapi import APIRouter, HTTPException
-from lib.fastapi import Depends
-
 from db import (
     create_company,
     delete_my_company,
@@ -13,6 +10,8 @@ from db import (
     get_job_postings_by_company_id,
     get_logged_in_user,
 )
+from fastapi import APIRouter, HTTPException
+from lib.fastapi import Depends
 from models import Company, JobPosting
 
 router = APIRouter()

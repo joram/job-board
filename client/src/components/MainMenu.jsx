@@ -1,4 +1,4 @@
-import {Dropdown, Image, Menu} from "semantic-ui-react";
+import {Dropdown, Menu} from "semantic-ui-react";
 import React, {useState} from "react";
 import {getLocalUser} from "../utils";
 import SlackLogin from "./SlackLogin";
@@ -34,7 +34,6 @@ export default function MainMenu(props) {
 
     return (
      <Menu pointing secondary>
-       <Menu.Header><h1>Job Board</h1></Menu.Header>
        <Menu.Item
          name='Job Postings'
          url='/'

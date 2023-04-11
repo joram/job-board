@@ -5,7 +5,7 @@ import boto3
 from db import get_logged_in_user
 from examples import example_job_posting
 from fastapi import APIRouter, Depends
-from models import Company, JobPosting
+from models import JobPosting
 from views.users import prefixed_uuid
 
 router = APIRouter()
@@ -27,7 +27,7 @@ def post_job_posting(job_posting: JobPosting, user=Depends(get_logged_in_user)) 
     if job_posting.company_id:
         item["company_id"] = {"S": job_posting.company_id}
 
-    response = table.put_item(Item=item)
+    table.put_item(Item=item)
 
     job_posting.id = uid
     job_posting.created_at = datetime.datetime.now()
@@ -38,6 +38,11 @@ def post_job_posting(job_posting: JobPosting, user=Depends(get_logged_in_user)) 
 @router.get("/posting/{posting_id}", tags=["public"])
 def get_posting(posting_id: str) -> JobPosting:
     return example_job_posting
+
+
+@router.get("/user/{user_id}/postings", tags=["authentication required"])
+def get_my_postings(user_id: str, user=Depends(get_logged_in_user)) -> List[JobPosting]:
+    return [example_job_posting]
 
 
 @router.get("/postings", tags=["public"])

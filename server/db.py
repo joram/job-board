@@ -2,9 +2,8 @@ import datetime
 
 import boto3
 from fastapi import Header, HTTPException
-from pydantic.class_validators import List
-
 from models import Company, JobPosting, User
+from pydantic.class_validators import List
 from views.users import prefixed_uuid
 
 dynamodb = boto3.client("dynamodb", region_name="ca-central-1")

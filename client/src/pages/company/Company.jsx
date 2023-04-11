@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
-import {JobPostingPlaceholder} from "../components/JobPostingCard";
-import {delete_company, get_company_by_id, get_user_id} from "../api";
+import {JobPostingPlaceholder} from "../../components/JobPostingCard";
+import {delete_company, get_company_by_id, get_user_id} from "../../api";
 import {Modal, Header, Segment, Button, Container, Image} from "semantic-ui-react";
-import MainMenu from "../components/MainMenu";
+import MainMenu from "../../components/MainMenu";
 import {useParams} from 'react-router-dom';
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router";
@@ -19,7 +19,7 @@ export default function Company(){
             setCompany(got_company)
             setLoading(false)
         })
-    }, [])
+    }, [company_id])
 
     if(loading) {
         return <Container>

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {Button, Container, Form} from "semantic-ui-react";
-import MainMenu from "../components/MainMenu";
-import {get_company_by_id, get_user_id, update_company} from "../api";
+import MainMenu from "../../components/MainMenu";
+import {get_company_by_id, get_user_id, update_company} from "../../api";
 import {useParams} from 'react-router-dom';
 import {useNavigate} from "react-router";
 
@@ -19,7 +19,6 @@ export default function EditCompany(){
 
     useEffect(() => {
         get_company_by_id(company_id).then(company => {
-            console.log(company)
             setName(company.name)
             setDescription(company.description)
             setWebsite(company.website_url)
@@ -28,7 +27,7 @@ export default function EditCompany(){
             setAddress(company.address)
             setId(company.id)
         })
-    }, [])
+    }, [company_id])
 
     function submit(){
         console.log("submit")

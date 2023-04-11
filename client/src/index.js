@@ -7,13 +7,15 @@ import {createBrowserRouter, RouterProvider,} from "react-router-dom";
 import "./index.css";
 import SlackAuth from "./pages/SlackAuth";
 import 'semantic-ui-css/semantic.min.css'
-import Companies from "./pages/Companies";
-import JobPostings from "./pages/JobPostings";
+import Companies from "./pages/company/Companies";
+import JobPostings from "./pages/job_posting/JobPostings";
 import Logout from "./pages/Logout";
-import MyCompanies from "./pages/MyCompanies";
-import CreateCompany from "./pages/CreateCompany";
-import Company from "./pages/Company";
-import EditCompany from "./pages/EditCompany";
+import MyCompanies from "./pages/company/MyCompanies";
+import CreateCompany from "./pages/company/CreateCompany";
+import Company from "./pages/company/Company";
+import EditCompany from "./pages/company/EditCompany";
+import MyJobPostings from "./pages/job_posting/MyJobPostings";
+import CreateJobPosting from "./pages/job_posting/CreateJobPosting";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,12 @@ const router = createBrowserRouter([
   }, {
     path: "/my/companies",
     element: <MyCompanies />,
+  }, {
+    path: "/my/job_postings",
+    element: <MyJobPostings/>,
+  }, {
+    path: "/job_posting/create",
+    element: <CreateJobPosting />,
   }, {
     path: "/company/create",
     element: <CreateCompany />,

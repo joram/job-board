@@ -10,7 +10,7 @@ select = A,E,F,W,I,T4,C4,B
 # W502 Line break occurred before a binary operator
 # A003 class attribute <name> is shadowing a python builtin
 # E203 Whitespace before ':' (black 'incompatibility')
-ignore = E501,W503,A003,E203
+ignore = E501,W503,A003,E203,B008
 
 # F405 Name may be undefined, or defined from star imports
 per-file-ignores =

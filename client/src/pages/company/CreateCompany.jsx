@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Button, Container, Form} from "semantic-ui-react";
-import MainMenu from "../components/MainMenu";
-import {create_company, get_user_id} from "../api";
+import MainMenu from "../../components/MainMenu";
+import {create_company, get_user_id} from "../../api";
 import {useNavigate} from "react-router";
 
 export default function CreateCompany(){
