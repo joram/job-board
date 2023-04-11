@@ -1,45 +1,10 @@
 import datetime
+from typing import List
 
 import boto3
-from fastapi import Header, HTTPException
-from models import Company, JobPosting, User
-from pydantic.class_validators import List
+from fastapi import HTTPException
+from models import Company, User
 from views.users import prefixed_uuid
-
-dynamodb = boto3.client("dynamodb", region_name="ca-central-1")
-
-
-def get_logged_in_user(auth_token: str = Header(default=None)) -> User:
-    if auth_token is None:
-        print("No auth token provided")
-        raise HTTPException(status_code=403, detail="Invalid Auth Token")
-
-    response = dynamodb.query(
-        TableName="jb-auth_tokens", KeyConditionExpression="id = :id", ExpressionAttributeValues={":id": {"S": auth_token}}
-    )
-    if len(response["Items"]) == 0:
-        print("no token found")
-        raise HTTPException(status_code=403, detail="Invalid Auth Token")
-
-    token = response["Items"][0]
-    user_id = token["user_id"]["S"]
-
-    response = dynamodb.query(
-        TableName="jb-users", KeyConditionExpression="id = :id", ExpressionAttributeValues={":id": {"S": user_id}}
-    )
-    if len(response["Items"]) == 0:
-        print("no user found")
-        raise HTTPException(status_code=403, detail="Invalid Auth Token")
-
-    user = User(
-        id=response["Items"][0]["id"]["S"],
-        name=response["Items"][0]["name"]["S"],
-        profile_picture=response["Items"][0]["profile_picture"]["S"],
-        created_at=datetime.datetime.now(),
-        updated_at=datetime.datetime.now(),
-        data={},
-    )
-    return user
 
 
 def create_company(company: Company, user: User) -> Company:
@@ -95,50 +60,6 @@ def delete_my_company(company_id: str) -> None:
     return None
 
 
-def get_companies_by_user_id(user_id: str) -> List[Company]:
-    dynamodb = boto3.client("dynamodb", region_name="ca-central-1")
-    response = dynamodb.scan(
-        TableName="jb-companies", FilterExpression="user_id = :user_id", ExpressionAttributeValues={":user_id": {"S": user_id}}
-    )
-    companies = []
-    for item in response["Items"]:
-        company = Company(
-            id=item["id"]["S"],
-            user_id=item["user_id"]["S"],
-            name=item["name"]["S"],
-            description=item["description"]["S"],
-            logo_url=item["logo_url"]["S"],
-            website_url=item["website_url"]["S"],
-            created_at=datetime.datetime.now(),
-            updated_at=datetime.datetime.now(),
-        )
-        companies.append(company)
-    return companies
-
-
-def get_job_postings_by_company_id(company_id: str) -> List[JobPosting]:
-    dynamodb = boto3.client("dynamodb", region_name="ca-central-1")
-    response = dynamodb.scan(
-        TableName="jb-job_postings",
-        FilterExpression="company_id = :company_id",
-        ExpressionAttributeValues={":company_id": {"S": company_id}},
-    )
-    job_postings = []
-    for item in response["Items"]:
-        job_posting = JobPosting(
-            id=item["id"]["S"],
-            company_id=item["company_id"]["S"],
-            title=item["title"]["S"],
-            description=item["description"]["S"],
-            location=item["location"]["S"],
-            salary=item["salary"]["S"],
-            created_at=datetime.datetime.now(),
-            updated_at=datetime.datetime.now(),
-        )
-        job_postings.append(job_posting)
-    return job_postings
-
-
 def get_company_by_id(company_id: str) -> Company:
     dynamodb = boto3.client("dynamodb", region_name="ca-central-1")
     response = dynamodb.scan(
@@ -179,6 +100,27 @@ def get_all_companies() -> List[Company]:
             created_at=datetime.datetime.now(),
             updated_at=datetime.datetime.now(),
             address=item.get("address", {}).get("S"),
+        )
+        companies.append(company)
+    return companies
+
+
+def get_companies_by_user_id(user_id: str) -> List[Company]:
+    dynamodb = boto3.client("dynamodb", region_name="ca-central-1")
+    response = dynamodb.scan(
+        TableName="jb-companies", FilterExpression="user_id = :user_id", ExpressionAttributeValues={":user_id": {"S": user_id}}
+    )
+    companies = []
+    for item in response["Items"]:
+        company = Company(
+            id=item["id"]["S"],
+            user_id=item["user_id"]["S"],
+            name=item["name"]["S"],
+            description=item["description"]["S"],
+            logo_url=item["logo_url"]["S"],
+            website_url=item["website_url"]["S"],
+            created_at=datetime.datetime.now(),
+            updated_at=datetime.datetime.now(),
         )
         companies.append(company)
     return companies
