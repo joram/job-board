@@ -1,0 +1,53 @@
+[flake8]
+# enable this when we get braver (McCabe)
+# max-complexity = 18
+
+max-line-length = 110
+
+select = A,E,F,W,I,T4,C4,B
+
+# E501 Line too long (we'll use flake8-bugbear for this)
+# W502 Line break occurred before a binary operator
+# A003 class attribute <name> is shadowing a python builtin
+# E203 Whitespace before ':' (black 'incompatibility')
+ignore = E501,W503,A003,E203
+
+# F405 Name may be undefined, or defined from star imports
+per-file-ignores =
+    # Star import necessary for encoder functionality
+    encoding/encoder_decoder.py:F403,F405
+    # Star import important for convenience
+    modules/credit/equifax_ca/efx_xml_request_builder.py:F403,F405
+    modules/mvr/samba/samba_response_transform.py:F403,F405
+    modules/public_risk/rdc/rdc_xml_parser.py:F403,F405
+    modules/scoring/scoring_listener.py:F403,F405
+    testing/*:F403,F405
+    transport/comms/api_requester.py:F403,F405
+    # Trailing whitespace in string literal necessary for test
+    testing/mvr_module/pytest_on_mvr_response_parse.py:W291
+
+extend_exclude =
+          # defaults from isort
+          .bzr,
+          .direnv,
+          .eggs,
+          .git,
+          .hg,
+          .mypy_cache,
+          .nox,
+          .pants.d,
+          .svn,
+          .tox,
+          .venv,
+          _build,
+          buck-out,
+          build,
+          dist,
+          node_modules,
+          venv,
+          # the remainder are our custom additions
+          dockerdata,
+          .idea,
+          static,
+          migrations,
+          local
