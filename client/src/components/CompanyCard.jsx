@@ -14,7 +14,7 @@ export default function CompanyCard(props) {
         navigate("/company/"+data.id)
     }
 
-
+    console.log(data)
     return <Card  onClick={() => redirect()}>
       <Card.Content>
         <Image

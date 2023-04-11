@@ -1,5 +1,5 @@
 
-zip:
+zip_server:
 	pip install --upgrade pip
 	cd server && pip3 install --target ./lib/ --requirement requirements.txt
 	rm -rf ./server/lib/*dist-info
@@ -8,19 +8,27 @@ zip:
 	cd server/lib && zip -r9 ../lambda.zip ./*
 	mv ./server/lambda.zip ./cdk/lambda.zip
 
-synth:
+synth_infra:
 	cd cdk && cdk synth
 
-diff:
+diff_infra:
 	cd cdk && cdk diff
 
-deploy:
+deploy_infra:
 	cd cdk && cdk deploy
 
-run:
+deploy_server: zip_server deploy_infra
+
+deploy_client:
+	cd client && npm run build
+	cd client && aws s3 sync ./build/ s3://yyjtechjobboard.ca
+	cd client && aws cloudfront create-invalidation --distribution-id=E231GMI5QVPFBH --paths=/index.html
+
+
+run_local_server:
 	cd server && python3 ./main.py
 
-start:
+start_local_client:
 	cd client && HTTPS=true npm start
 
 CURRENT_UID := $(shell id -u)

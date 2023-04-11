@@ -1,5 +1,6 @@
 import datetime
 import enum
+from typing import Optional
 
 from pydantic import BaseModel as PydanticBaseModel
 
@@ -10,9 +11,9 @@ class Currency(enum.Enum):
 
 
 class BaseModel(PydanticBaseModel):
-    id: str
-    created_at: datetime.datetime
-    updated_at: datetime.datetime
+    id: Optional[str]
+    created_at: Optional[datetime.datetime]
+    updated_at: Optional[datetime.datetime]
 
     class Config:
         orm_mode = True
@@ -37,11 +38,13 @@ class Company(BaseModel):
     description: str
     logo_url: str
     website_url: str
+    address: Optional[str]
 
 
 class JobPosting(BaseModel):
     user_id: str
-    company: Company
+    company: Optional[Company]
+    company_id: Optional[str]
 
     job_title: str
     description: str

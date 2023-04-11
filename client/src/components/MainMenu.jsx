@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import {getLocalUser} from "../utils";
 import SlackLogin from "./SlackLogin";
 import {useNavigate} from "react-router";
+import {Link} from "react-router-dom";
 
 function ProfileMenu() {
     let user = getLocalUser()
@@ -14,15 +15,11 @@ function ProfileMenu() {
       />
     }
 
-    let profile = <>
-        <Image src={user.profile_picture} avatar />
-        <span>{user.name}</span>
-    </>
-    return <Dropdown item text={profile}>
+    return <Dropdown item text={user.name}>
           <Dropdown.Menu>
-            <Dropdown.Item>My Companies</Dropdown.Item>
-            <Dropdown.Item>My Job Postings</Dropdown.Item>
-            <Dropdown.Item>Logout</Dropdown.Item>
+            <Dropdown.Item as={Link} to="/my/companies" >My Companies</Dropdown.Item>
+            <Dropdown.Item as={Link} to="/my/job_postings" >My Job Postings</Dropdown.Item>
+            <Dropdown.Item as={Link} to="/logout" >Logout</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
 }

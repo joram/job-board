@@ -1,33 +1,38 @@
+import datetime
 from typing import List
 
-from fastapi import APIRouter
+import boto3
+from db import get_logged_in_user
+from examples import example_job_posting
+from fastapi import APIRouter, Depends
 from models import Company, JobPosting
+from views.users import prefixed_uuid
 
 router = APIRouter()
 
-example_job_posting = JobPosting(
-    id="job_posting_id",
-    user_id="user_id",
-    company=Company(
-        id="company_id",
-        user_id="user_id",
-        name="Google",
-        description="We are a tech company",
-        logo_url="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
-        website_url="https://www.google.com",
-        created_at="2021-01-01T00:00:00Z",
-        updated_at="2021-01-01T00:00:00Z",
-    ),
-    job_title="Software Engineer",
-    description="We are looking for a software engineer to join our team",
-    benefits="Health benefits, 401k, etc.",
-    application_url="https://www.google.com",
-    min_salary=100000,
-    max_salary=120000,
-    salary_currency="CAD",
-    created_at="2021-01-01T00:00:00Z",
-    updated_at="2021-01-01T00:00:00Z",
-)
+
+@router.post("/job_posting", tags=["authentication required"])
+def post_job_posting(job_posting: JobPosting, user=Depends(get_logged_in_user)) -> JobPosting:
+    dynamodb = boto3.resource("dynamodb")
+    table = dynamodb.Table("jb-job_postings")
+    uid = prefixed_uuid("job_posting_")
+    item = {
+        "id": {"S": uid},
+        "user_id": {"S": user.id},
+        "job_title": {"S": job_posting.job_title},
+        "description": job_posting.description,
+        "created_at": datetime.datetime.now().isoformat(),
+        "updated_at": datetime.datetime.now().isoformat(),
+    }
+    if job_posting.company_id:
+        item["company_id"] = {"S": job_posting.company_id}
+
+    response = table.put_item(Item=item)
+
+    job_posting.id = uid
+    job_posting.created_at = datetime.datetime.now()
+    job_posting.updated_at = datetime.datetime.now()
+    return job_posting
 
 
 @router.get("/posting/{posting_id}", tags=["public"])

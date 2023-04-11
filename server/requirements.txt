@@ -3,3 +3,4 @@ mangum==0.17.0
 pynamodb==5.4.1
 requests==2.28.2
 slackclient==2.9.4
+boto3==1.26.109

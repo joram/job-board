@@ -9,6 +9,11 @@ import SlackAuth from "./pages/SlackAuth";
 import 'semantic-ui-css/semantic.min.css'
 import Companies from "./pages/Companies";
 import JobPostings from "./pages/JobPostings";
+import Logout from "./pages/Logout";
+import MyCompanies from "./pages/MyCompanies";
+import CreateCompany from "./pages/CreateCompany";
+import Company from "./pages/Company";
+import EditCompany from "./pages/EditCompany";
 
 const router = createBrowserRouter([
   {
@@ -18,9 +23,25 @@ const router = createBrowserRouter([
     path: "/companies",
     element: <Companies />,
   }, {
+    path: "/company/:company_id",
+    element: <Company/>,
+  }, {
+    path: "/company/:company_id/edit",
+    element: <EditCompany />,
+  }, {
+    path: "/my/companies",
+    element: <MyCompanies />,
+  }, {
+    path: "/company/create",
+    element: <CreateCompany />,
+  }, {
     path: "/api/v1/auth/slack",
     element: <SlackAuth />,
-  },
+  }, {
+    path: "/logout",
+    element: <Logout />,
+  }
+
 ]);
 
 
