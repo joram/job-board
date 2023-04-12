@@ -44,7 +44,7 @@ def get_or_create_user(name: str, slack_id: str, profile_picture: str) -> User:
     )
 
 
-def get_logged_in_user(auth_token: str = Header(default=None)) -> User:
+def get_logged_in_user(auth_token: str = Header(default=None, alias="X-Api-Key")) -> User:
     if auth_token is None:
         print("No auth token provided")
         raise HTTPException(status_code=403, detail="Invalid Auth Token")

@@ -216,13 +216,19 @@ export interface User {
      * @type {string}
      * @memberof User
      */
-    'id': string;
+    'id'?: string;
     /**
      * 
      * @type {string}
      * @memberof User
      */
-    'profile_picture': string;
+    'created_at'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    'updated_at'?: string;
     /**
      * 
      * @type {string}
@@ -234,13 +240,7 @@ export interface User {
      * @type {string}
      * @memberof User
      */
-    'created_at': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    'updated_at': string;
+    'profile_picture': string;
     /**
      * 
      * @type {string}
@@ -284,11 +284,11 @@ export const AuthenticationRequiredApiAxiosParamCreator = function (configuratio
          * 
          * @summary Delete Company
          * @param {string} companyId 
-         * @param {string} [authToken] 
+         * @param {string} [xApiKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteCompanyCompanyCompanyIdDelete: async (companyId: string, authToken?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        deleteCompanyCompanyCompanyIdDelete: async (companyId: string, xApiKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'companyId' is not null or undefined
             assertParamExists('deleteCompanyCompanyCompanyIdDelete', 'companyId', companyId)
             const localVarPath = `/company/{company_id}`
@@ -304,8 +304,8 @@ export const AuthenticationRequiredApiAxiosParamCreator = function (configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (authToken != null) {
-                localVarHeaderParameter['auth-token'] = String(authToken);
+            if (xApiKey != null) {
+                localVarHeaderParameter['X-Api-Key'] = String(xApiKey);
             }
 
 
@@ -323,11 +323,11 @@ export const AuthenticationRequiredApiAxiosParamCreator = function (configuratio
          * 
          * @summary Get My Companies
          * @param {string} userId 
-         * @param {string} [authToken] 
+         * @param {string} [xApiKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMyCompaniesUserUserIdCompaniesGet: async (userId: string, authToken?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getMyCompaniesUserUserIdCompaniesGet: async (userId: string, xApiKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             assertParamExists('getMyCompaniesUserUserIdCompaniesGet', 'userId', userId)
             const localVarPath = `/user/{user_id}/companies`
@@ -343,8 +343,8 @@ export const AuthenticationRequiredApiAxiosParamCreator = function (configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (authToken != null) {
-                localVarHeaderParameter['auth-token'] = String(authToken);
+            if (xApiKey != null) {
+                localVarHeaderParameter['X-Api-Key'] = String(xApiKey);
             }
 
 
@@ -362,11 +362,11 @@ export const AuthenticationRequiredApiAxiosParamCreator = function (configuratio
          * 
          * @summary Get My Postings
          * @param {string} userId 
-         * @param {string} [authToken] 
+         * @param {string} [xApiKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMyPostingsUserUserIdPostingsGet: async (userId: string, authToken?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getMyPostingsUserUserIdPostingsGet: async (userId: string, xApiKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             assertParamExists('getMyPostingsUserUserIdPostingsGet', 'userId', userId)
             const localVarPath = `/user/{user_id}/postings`
@@ -382,8 +382,8 @@ export const AuthenticationRequiredApiAxiosParamCreator = function (configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (authToken != null) {
-                localVarHeaderParameter['auth-token'] = String(authToken);
+            if (xApiKey != null) {
+                localVarHeaderParameter['X-Api-Key'] = String(xApiKey);
             }
 
 
@@ -401,11 +401,11 @@ export const AuthenticationRequiredApiAxiosParamCreator = function (configuratio
          * 
          * @summary Post Company
          * @param {Company} company 
-         * @param {string} [authToken] 
+         * @param {string} [xApiKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postCompanyCompanyPost: async (company: Company, authToken?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        postCompanyCompanyPost: async (company: Company, xApiKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'company' is not null or undefined
             assertParamExists('postCompanyCompanyPost', 'company', company)
             const localVarPath = `/company`;
@@ -420,8 +420,8 @@ export const AuthenticationRequiredApiAxiosParamCreator = function (configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (authToken != null) {
-                localVarHeaderParameter['auth-token'] = String(authToken);
+            if (xApiKey != null) {
+                localVarHeaderParameter['X-Api-Key'] = String(xApiKey);
             }
 
 
@@ -442,11 +442,11 @@ export const AuthenticationRequiredApiAxiosParamCreator = function (configuratio
          * 
          * @summary Post Job Posting
          * @param {JobPosting} jobPosting 
-         * @param {string} [authToken] 
+         * @param {string} [xApiKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postJobPostingJobPostingPost: async (jobPosting: JobPosting, authToken?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        postJobPostingJobPostingPost: async (jobPosting: JobPosting, xApiKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'jobPosting' is not null or undefined
             assertParamExists('postJobPostingJobPostingPost', 'jobPosting', jobPosting)
             const localVarPath = `/job_posting`;
@@ -461,8 +461,8 @@ export const AuthenticationRequiredApiAxiosParamCreator = function (configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (authToken != null) {
-                localVarHeaderParameter['auth-token'] = String(authToken);
+            if (xApiKey != null) {
+                localVarHeaderParameter['X-Api-Key'] = String(xApiKey);
             }
 
 
@@ -484,11 +484,11 @@ export const AuthenticationRequiredApiAxiosParamCreator = function (configuratio
          * @summary Put Company
          * @param {string} companyId 
          * @param {Company} company 
-         * @param {string} [authToken] 
+         * @param {string} [xApiKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        putCompanyCompanyCompanyIdPut: async (companyId: string, company: Company, authToken?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        putCompanyCompanyCompanyIdPut: async (companyId: string, company: Company, xApiKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'companyId' is not null or undefined
             assertParamExists('putCompanyCompanyCompanyIdPut', 'companyId', companyId)
             // verify required parameter 'company' is not null or undefined
@@ -506,8 +506,8 @@ export const AuthenticationRequiredApiAxiosParamCreator = function (configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (authToken != null) {
-                localVarHeaderParameter['auth-token'] = String(authToken);
+            if (xApiKey != null) {
+                localVarHeaderParameter['X-Api-Key'] = String(xApiKey);
             }
 
 
@@ -538,60 +538,60 @@ export const AuthenticationRequiredApiFp = function(configuration?: Configuratio
          * 
          * @summary Delete Company
          * @param {string} companyId 
-         * @param {string} [authToken] 
+         * @param {string} [xApiKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteCompanyCompanyCompanyIdDelete(companyId: string, authToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteCompanyCompanyCompanyIdDelete(companyId, authToken, options);
+        async deleteCompanyCompanyCompanyIdDelete(companyId: string, xApiKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteCompanyCompanyCompanyIdDelete(companyId, xApiKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @summary Get My Companies
          * @param {string} userId 
-         * @param {string} [authToken] 
+         * @param {string} [xApiKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getMyCompaniesUserUserIdCompaniesGet(userId: string, authToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Company>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getMyCompaniesUserUserIdCompaniesGet(userId, authToken, options);
+        async getMyCompaniesUserUserIdCompaniesGet(userId: string, xApiKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Company>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getMyCompaniesUserUserIdCompaniesGet(userId, xApiKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @summary Get My Postings
          * @param {string} userId 
-         * @param {string} [authToken] 
+         * @param {string} [xApiKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getMyPostingsUserUserIdPostingsGet(userId: string, authToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<JobPosting>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getMyPostingsUserUserIdPostingsGet(userId, authToken, options);
+        async getMyPostingsUserUserIdPostingsGet(userId: string, xApiKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<JobPosting>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getMyPostingsUserUserIdPostingsGet(userId, xApiKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @summary Post Company
          * @param {Company} company 
-         * @param {string} [authToken] 
+         * @param {string} [xApiKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async postCompanyCompanyPost(company: Company, authToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Company>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.postCompanyCompanyPost(company, authToken, options);
+        async postCompanyCompanyPost(company: Company, xApiKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Company>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postCompanyCompanyPost(company, xApiKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @summary Post Job Posting
          * @param {JobPosting} jobPosting 
-         * @param {string} [authToken] 
+         * @param {string} [xApiKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async postJobPostingJobPostingPost(jobPosting: JobPosting, authToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<JobPosting>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.postJobPostingJobPostingPost(jobPosting, authToken, options);
+        async postJobPostingJobPostingPost(jobPosting: JobPosting, xApiKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<JobPosting>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postJobPostingJobPostingPost(jobPosting, xApiKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -599,12 +599,12 @@ export const AuthenticationRequiredApiFp = function(configuration?: Configuratio
          * @summary Put Company
          * @param {string} companyId 
          * @param {Company} company 
-         * @param {string} [authToken] 
+         * @param {string} [xApiKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async putCompanyCompanyCompanyIdPut(companyId: string, company: Company, authToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Company>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.putCompanyCompanyCompanyIdPut(companyId, company, authToken, options);
+        async putCompanyCompanyCompanyIdPut(companyId: string, company: Company, xApiKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Company>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.putCompanyCompanyCompanyIdPut(companyId, company, xApiKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -621,68 +621,68 @@ export const AuthenticationRequiredApiFactory = function (configuration?: Config
          * 
          * @summary Delete Company
          * @param {string} companyId 
-         * @param {string} [authToken] 
+         * @param {string} [xApiKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteCompanyCompanyCompanyIdDelete(companyId: string, authToken?: string, options?: any): AxiosPromise<any> {
-            return localVarFp.deleteCompanyCompanyCompanyIdDelete(companyId, authToken, options).then((request) => request(axios, basePath));
+        deleteCompanyCompanyCompanyIdDelete(companyId: string, xApiKey?: string, options?: any): AxiosPromise<any> {
+            return localVarFp.deleteCompanyCompanyCompanyIdDelete(companyId, xApiKey, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Get My Companies
          * @param {string} userId 
-         * @param {string} [authToken] 
+         * @param {string} [xApiKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMyCompaniesUserUserIdCompaniesGet(userId: string, authToken?: string, options?: any): AxiosPromise<Array<Company>> {
-            return localVarFp.getMyCompaniesUserUserIdCompaniesGet(userId, authToken, options).then((request) => request(axios, basePath));
+        getMyCompaniesUserUserIdCompaniesGet(userId: string, xApiKey?: string, options?: any): AxiosPromise<Array<Company>> {
+            return localVarFp.getMyCompaniesUserUserIdCompaniesGet(userId, xApiKey, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Get My Postings
          * @param {string} userId 
-         * @param {string} [authToken] 
+         * @param {string} [xApiKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMyPostingsUserUserIdPostingsGet(userId: string, authToken?: string, options?: any): AxiosPromise<Array<JobPosting>> {
-            return localVarFp.getMyPostingsUserUserIdPostingsGet(userId, authToken, options).then((request) => request(axios, basePath));
+        getMyPostingsUserUserIdPostingsGet(userId: string, xApiKey?: string, options?: any): AxiosPromise<Array<JobPosting>> {
+            return localVarFp.getMyPostingsUserUserIdPostingsGet(userId, xApiKey, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Post Company
          * @param {Company} company 
-         * @param {string} [authToken] 
+         * @param {string} [xApiKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postCompanyCompanyPost(company: Company, authToken?: string, options?: any): AxiosPromise<Company> {
-            return localVarFp.postCompanyCompanyPost(company, authToken, options).then((request) => request(axios, basePath));
+        postCompanyCompanyPost(company: Company, xApiKey?: string, options?: any): AxiosPromise<Company> {
+            return localVarFp.postCompanyCompanyPost(company, xApiKey, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Post Job Posting
          * @param {JobPosting} jobPosting 
-         * @param {string} [authToken] 
+         * @param {string} [xApiKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postJobPostingJobPostingPost(jobPosting: JobPosting, authToken?: string, options?: any): AxiosPromise<JobPosting> {
-            return localVarFp.postJobPostingJobPostingPost(jobPosting, authToken, options).then((request) => request(axios, basePath));
+        postJobPostingJobPostingPost(jobPosting: JobPosting, xApiKey?: string, options?: any): AxiosPromise<JobPosting> {
+            return localVarFp.postJobPostingJobPostingPost(jobPosting, xApiKey, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Put Company
          * @param {string} companyId 
          * @param {Company} company 
-         * @param {string} [authToken] 
+         * @param {string} [xApiKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        putCompanyCompanyCompanyIdPut(companyId: string, company: Company, authToken?: string, options?: any): AxiosPromise<Company> {
-            return localVarFp.putCompanyCompanyCompanyIdPut(companyId, company, authToken, options).then((request) => request(axios, basePath));
+        putCompanyCompanyCompanyIdPut(companyId: string, company: Company, xApiKey?: string, options?: any): AxiosPromise<Company> {
+            return localVarFp.putCompanyCompanyCompanyIdPut(companyId, company, xApiKey, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -698,65 +698,65 @@ export class AuthenticationRequiredApi extends BaseAPI {
      * 
      * @summary Delete Company
      * @param {string} companyId 
-     * @param {string} [authToken] 
+     * @param {string} [xApiKey] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthenticationRequiredApi
      */
-    public deleteCompanyCompanyCompanyIdDelete(companyId: string, authToken?: string, options?: AxiosRequestConfig) {
-        return AuthenticationRequiredApiFp(this.configuration).deleteCompanyCompanyCompanyIdDelete(companyId, authToken, options).then((request) => request(this.axios, this.basePath));
+    public deleteCompanyCompanyCompanyIdDelete(companyId: string, xApiKey?: string, options?: AxiosRequestConfig) {
+        return AuthenticationRequiredApiFp(this.configuration).deleteCompanyCompanyCompanyIdDelete(companyId, xApiKey, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary Get My Companies
      * @param {string} userId 
-     * @param {string} [authToken] 
+     * @param {string} [xApiKey] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthenticationRequiredApi
      */
-    public getMyCompaniesUserUserIdCompaniesGet(userId: string, authToken?: string, options?: AxiosRequestConfig) {
-        return AuthenticationRequiredApiFp(this.configuration).getMyCompaniesUserUserIdCompaniesGet(userId, authToken, options).then((request) => request(this.axios, this.basePath));
+    public getMyCompaniesUserUserIdCompaniesGet(userId: string, xApiKey?: string, options?: AxiosRequestConfig) {
+        return AuthenticationRequiredApiFp(this.configuration).getMyCompaniesUserUserIdCompaniesGet(userId, xApiKey, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary Get My Postings
      * @param {string} userId 
-     * @param {string} [authToken] 
+     * @param {string} [xApiKey] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthenticationRequiredApi
      */
-    public getMyPostingsUserUserIdPostingsGet(userId: string, authToken?: string, options?: AxiosRequestConfig) {
-        return AuthenticationRequiredApiFp(this.configuration).getMyPostingsUserUserIdPostingsGet(userId, authToken, options).then((request) => request(this.axios, this.basePath));
+    public getMyPostingsUserUserIdPostingsGet(userId: string, xApiKey?: string, options?: AxiosRequestConfig) {
+        return AuthenticationRequiredApiFp(this.configuration).getMyPostingsUserUserIdPostingsGet(userId, xApiKey, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary Post Company
      * @param {Company} company 
-     * @param {string} [authToken] 
+     * @param {string} [xApiKey] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthenticationRequiredApi
      */
-    public postCompanyCompanyPost(company: Company, authToken?: string, options?: AxiosRequestConfig) {
-        return AuthenticationRequiredApiFp(this.configuration).postCompanyCompanyPost(company, authToken, options).then((request) => request(this.axios, this.basePath));
+    public postCompanyCompanyPost(company: Company, xApiKey?: string, options?: AxiosRequestConfig) {
+        return AuthenticationRequiredApiFp(this.configuration).postCompanyCompanyPost(company, xApiKey, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary Post Job Posting
      * @param {JobPosting} jobPosting 
-     * @param {string} [authToken] 
+     * @param {string} [xApiKey] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthenticationRequiredApi
      */
-    public postJobPostingJobPostingPost(jobPosting: JobPosting, authToken?: string, options?: AxiosRequestConfig) {
-        return AuthenticationRequiredApiFp(this.configuration).postJobPostingJobPostingPost(jobPosting, authToken, options).then((request) => request(this.axios, this.basePath));
+    public postJobPostingJobPostingPost(jobPosting: JobPosting, xApiKey?: string, options?: AxiosRequestConfig) {
+        return AuthenticationRequiredApiFp(this.configuration).postJobPostingJobPostingPost(jobPosting, xApiKey, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -764,111 +764,13 @@ export class AuthenticationRequiredApi extends BaseAPI {
      * @summary Put Company
      * @param {string} companyId 
      * @param {Company} company 
-     * @param {string} [authToken] 
+     * @param {string} [xApiKey] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthenticationRequiredApi
      */
-    public putCompanyCompanyCompanyIdPut(companyId: string, company: Company, authToken?: string, options?: AxiosRequestConfig) {
-        return AuthenticationRequiredApiFp(this.configuration).putCompanyCompanyCompanyIdPut(companyId, company, authToken, options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-/**
- * DefaultApi - axios parameter creator
- * @export
- */
-export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * 
-         * @summary Get Root
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getRootGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * DefaultApi - functional programming interface
- * @export
- */
-export const DefaultApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * 
-         * @summary Get Root
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getRootGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getRootGet(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-    }
-};
-
-/**
- * DefaultApi - factory interface
- * @export
- */
-export const DefaultApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = DefaultApiFp(configuration)
-    return {
-        /**
-         * 
-         * @summary Get Root
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getRootGet(options?: any): AxiosPromise<any> {
-            return localVarFp.getRootGet(options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * DefaultApi - object-oriented interface
- * @export
- * @class DefaultApi
- * @extends {BaseAPI}
- */
-export class DefaultApi extends BaseAPI {
-    /**
-     * 
-     * @summary Get Root
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public getRootGet(options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).getRootGet(options).then((request) => request(this.axios, this.basePath));
+    public putCompanyCompanyCompanyIdPut(companyId: string, company: Company, xApiKey?: string, options?: AxiosRequestConfig) {
+        return AuthenticationRequiredApiFp(this.configuration).putCompanyCompanyCompanyIdPut(companyId, company, xApiKey, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

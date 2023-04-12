@@ -20,7 +20,7 @@ export default function SlackAuth() {
             }
         }).then((response) =>  {
             if(response.status !== 200){
-                console.log("failed", response.json())
+                console.log("failed", response)
                 navigate('/auth/failure');
                 return null
             }

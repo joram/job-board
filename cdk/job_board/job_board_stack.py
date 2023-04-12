@@ -4,25 +4,26 @@ from aws_cdk import (
     Duration,
     Stack,
     aws_apigateway,
-    aws_certificatemanager,
     aws_cloudfront,
     aws_cloudfront_origins,
     aws_dynamodb,
     aws_lambda,
-    aws_route53,
     aws_s3,
+    aws_secretsmanager,
 )
 from constructs import Construct
 
 
 class JobBoardStack(Stack):
-    def __init__(self, scope: Construct, uid: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, uid: str, cert, **kwargs) -> None:
         super().__init__(scope, uid, **kwargs)
         tables = self.create_tables()
         self.create_lambda_gateway(tables)
-        self.cloudfront_distribution = self.create_cloudfront()
+        self.cloudfront_distribution = self.create_cloudfront(cert)
 
     def create_lambda_gateway(self, tables: List[aws_dynamodb.Table]) -> None:
+        secrets = aws_secretsmanager.Secret(self, "Secrets", secret_name="job_board_secrets")
+
         my_lambda = aws_lambda.Function(
             self,
             "APICallHandler",
@@ -32,6 +33,7 @@ class JobBoardStack(Stack):
         )
         for table in tables:
             table.grant_read_write_data(my_lambda)
+        secrets.grant_read(my_lambda)
 
         gateway = aws_apigateway.LambdaRestApi(
             self,
@@ -88,7 +90,7 @@ class JobBoardStack(Stack):
 
         return [user_table, auth_token_table, company_table, posting_table]
 
-    def create_cloudfront(self) -> aws_cloudfront.Distribution:
+    def create_cloudfront(self, cert) -> aws_cloudfront.Distribution:
         s3_bucket = aws_s3.Bucket(
             self,
             "yyj-job-board-bucket",
@@ -96,16 +98,6 @@ class JobBoardStack(Stack):
         )
         s3_bucket.grant_public_access()
 
-        ## NEEDS TO BE IN us-east-1
-        # myHostedZone = aws_route53.HostedZone(
-        #     self, 'HostedZone',
-        #     zone_name="yyjtechjobboard.ca",
-        # )
-        #
-        # cert = aws_certificatemanager.Certificate(self, 'Certificate',
-        #     domain_name="*.yyjtechjobboard.ca",
-        #     validation=aws_certificatemanager.CertificateValidation.from_dns(myHostedZone),
-        # )
         #
 
         distribution = aws_cloudfront.Distribution(
@@ -116,8 +108,8 @@ class JobBoardStack(Stack):
                 viewer_protocol_policy=aws_cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
                 allowed_methods=aws_cloudfront.AllowedMethods.ALLOW_ALL,
             ),
-            # domain_names=["www.yyjtechjobboard.ca"],
-            # certificate=cert,
+            domain_names=["www.yyjtechjobboard.ca"],
+            certificate=cert,
             default_root_object="/index.html",
             price_class=aws_cloudfront.PriceClass.PRICE_CLASS_100,
             error_responses=[

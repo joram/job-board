@@ -17,10 +17,12 @@ def get_slack_auth_response(code: str) -> SlackAuthResponse:
         },
     )
     if response.status_code != 200:
-        raise HTTPException(status_code=403, detail="Slack API Error")
+        print(response.text)
+        raise HTTPException(status_code=403, detail="1: " + response.text)
 
     if response.json()["ok"] is False:
-        raise HTTPException(status_code=403, detail="Slack API Error")
+        print(response.text)
+        raise HTTPException(status_code=403, detail="2: " + response.text)
 
     auth_response = SlackAuthResponse(**response.json())
     return auth_response
@@ -39,7 +41,8 @@ def get_slack_user_info(auth_response: SlackAuthResponse) -> SlackOpenIdConnectU
         },
     )
     if response.status_code != 200:
-        raise HTTPException(status_code=403, detail="Slack API Error")
+        print(response.text)
+        raise HTTPException(status_code=403, detail=response.text)
     user_info = SlackOpenIdConnectUserInfo(**response.json())
     return user_info
 

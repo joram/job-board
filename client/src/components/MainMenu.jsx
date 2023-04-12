@@ -1,6 +1,6 @@
 import {Dropdown, Menu} from "semantic-ui-react";
 import React, {useState} from "react";
-import {getLocalUser} from "../utils";
+import {clientUrl, getLocalUser} from "../utils";
 import SlackLogin from "./SlackLogin";
 import {useNavigate} from "react-router";
 import {Link} from "react-router-dom";
@@ -9,7 +9,7 @@ function ProfileMenu() {
     let user = getLocalUser()
     if(user == null){
         return <SlackLogin
-        redirectUrl='https://localhost:3000/api/v1/auth/slack'
+        redirectUrl={clientUrl('/api/v1/auth/slack')}
         slackClientId='735117853430.5091553447984'
         slackUserScope='openid profile'
       />

@@ -15,7 +15,7 @@ diff_infra:
 	cd cdk && cdk diff
 
 deploy_infra:
-	cd cdk && cdk deploy
+	cd cdk && cdk deploy --all
 
 deploy_server: zip_server deploy_infra
 

@@ -21,7 +21,8 @@ class BaseModel(PydanticBaseModel):
 
 class User(BaseModel):
     name: str
-    data: dict
+    profile_picture: str
+    access_token: Optional[str]
 
 
 class AuthToken(BaseModel):
