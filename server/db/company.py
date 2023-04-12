@@ -4,12 +4,13 @@ from typing import List
 import boto3
 from fastapi import HTTPException
 from models import Company, User
-from views.users import prefixed_uuid
+from utils import prefixed_uuid
+
+dynamodb = boto3.client("dynamodb", region_name="ca-central-1")
 
 
 def create_company(company: Company, user: User) -> Company:
     uid = prefixed_uuid("company_")
-    dynamodb = boto3.client("dynamodb", region_name="ca-central-1")
     dynamodb.put_item(
         TableName="jb-companies",
         Item={
@@ -32,7 +33,6 @@ def create_company(company: Company, user: User) -> Company:
 
 
 def edit_company(company: Company, user: User) -> Company:
-    dynamodb = boto3.client("dynamodb", region_name="ca-central-1")
     dynamodb.update_item(
         TableName="jb-companies",
         Key={"id": {"S": company.id}},
@@ -52,7 +52,6 @@ def edit_company(company: Company, user: User) -> Company:
 
 
 def delete_my_company(company_id: str) -> None:
-    dynamodb = boto3.client("dynamodb", region_name="ca-central-1")
     dynamodb.delete_item(
         TableName="jb-companies",
         Key={"id": {"S": company_id}},
@@ -61,7 +60,6 @@ def delete_my_company(company_id: str) -> None:
 
 
 def get_company_by_id(company_id: str) -> Company:
-    dynamodb = boto3.client("dynamodb", region_name="ca-central-1")
     response = dynamodb.scan(
         TableName="jb-companies", FilterExpression="id = :id", ExpressionAttributeValues={":id": {"S": company_id}}
     )
@@ -84,7 +82,6 @@ def get_company_by_id(company_id: str) -> Company:
 
 
 def get_all_companies() -> List[Company]:
-    dynamodb = boto3.client("dynamodb", region_name="ca-central-1")
     response = dynamodb.scan(
         TableName="jb-companies",
     )
@@ -106,7 +103,6 @@ def get_all_companies() -> List[Company]:
 
 
 def get_companies_by_user_id(user_id: str) -> List[Company]:
-    dynamodb = boto3.client("dynamodb", region_name="ca-central-1")
     response = dynamodb.scan(
         TableName="jb-companies", FilterExpression="user_id = :user_id", ExpressionAttributeValues={":user_id": {"S": user_id}}
     )

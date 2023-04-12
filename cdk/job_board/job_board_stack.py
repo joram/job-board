@@ -1,6 +1,7 @@
 from typing import List
 
 from aws_cdk import (
+    Duration,
     Stack,
     aws_apigateway,
     aws_certificatemanager,
@@ -32,11 +33,17 @@ class JobBoardStack(Stack):
         for table in tables:
             table.grant_read_write_data(my_lambda)
 
-        aws_apigateway.LambdaRestApi(
+        gateway = aws_apigateway.LambdaRestApi(
             self,
             "Endpoint",
             handler=my_lambda,
+            default_cors_preflight_options=aws_apigateway.CorsOptions(
+                allow_origins=aws_apigateway.Cors.ALL_ORIGINS, allow_methods=aws_apigateway.Cors.ALL_METHODS
+            ),
         )
+        gateway.root.add_method("GET")
+        gateway.root.add_method("POST")
+        gateway.root.add_method("PUT")
 
     def create_tables(self) -> List[aws_dynamodb.Table]:
         user_table = aws_dynamodb.Table(
@@ -101,14 +108,31 @@ class JobBoardStack(Stack):
         # )
         #
 
-        return aws_cloudfront.Distribution(
+        distribution = aws_cloudfront.Distribution(
             self,
             "yyj-job-board-distribution",
             default_behavior=aws_cloudfront.BehaviorOptions(
                 origin=aws_cloudfront_origins.S3Origin(s3_bucket),
                 viewer_protocol_policy=aws_cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+                allowed_methods=aws_cloudfront.AllowedMethods.ALLOW_ALL,
             ),
             # domain_names=["www.yyjtechjobboard.ca"],
             # certificate=cert,
+            default_root_object="/index.html",
             price_class=aws_cloudfront.PriceClass.PRICE_CLASS_100,
+            error_responses=[
+                aws_cloudfront.ErrorResponse(
+                    http_status=403,
+                    response_http_status=200,
+                    response_page_path="/index.html",
+                    ttl=Duration.minutes(30),
+                ),
+                aws_cloudfront.ErrorResponse(
+                    http_status=404,
+                    response_http_status=200,
+                    response_page_path="/index.html",
+                    ttl=Duration.minutes(30),
+                ),
+            ],
         )
+        return distribution

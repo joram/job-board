@@ -1,17 +1,16 @@
 from typing import List
 
-from db import (
+from db.company import (
     create_company,
     delete_my_company,
     edit_company,
     get_all_companies,
     get_companies_by_user_id,
     get_company_by_id,
-    get_job_postings_by_company_id,
-    get_logged_in_user,
 )
-from fastapi import APIRouter, HTTPException
-from lib.fastapi import Depends
+from db.job_posting import get_job_postings_by_company_id
+from db.user import get_logged_in_user
+from fastapi import APIRouter, Depends, HTTPException
 from models import Company, JobPosting
 
 router = APIRouter()

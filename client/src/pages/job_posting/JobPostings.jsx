@@ -17,10 +17,13 @@ export default function JobPostings(){
     }, [])
 
     if(loading) {
-        return <Container>
-            <JobPostingPlaceholder/>
-            <JobPostingPlaceholder/>
-        </Container>
+        return <>
+            <MainMenu highlight={'Job Postings'}/>
+            <Container>
+                <JobPostingPlaceholder/>
+                <JobPostingPlaceholder/>
+            </Container>
+        </>
     }
 
     let i = 0;

@@ -1,6 +1,5 @@
-from fastapi import Header, HTTPException
+from uuid import uuid4
 
 
-async def verify_auth_token(auth_token: str = Header(default=None)) -> None:
-    if auth_token not in ["valid_auth_token"]:
-        raise HTTPException(status_code=403, detail="Invalid Auth Token")
+def prefixed_uuid(prefix: str) -> str:
+    return prefix + str(uuid4())

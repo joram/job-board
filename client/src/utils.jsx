@@ -2,7 +2,7 @@ export function serverUrl(path) {
   if(window.location.hostname === 'localhost')
     return 'http://localhost:5000'+path
 
-  return 'https://ghrmz7xo12.execute-api.us-east-1.amazonaws.com/prod'+path
+  return 'https://d9fr3dwx8e.execute-api.ca-central-1.amazonaws.com/prod'+path
 }
 
 export function getLocalUser(){

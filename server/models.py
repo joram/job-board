@@ -53,3 +53,29 @@ class JobPosting(BaseModel):
     min_salary: int
     max_salary: int
     salary_currency: Currency
+
+
+class AuthedUser(BaseModel):
+    id: str
+    scope: str
+    access_token: str
+    token_type: str
+
+
+class Team(BaseModel):
+    id: str
+
+
+class SlackAuthResponse(BaseModel):
+    ok: bool
+    app_id: str
+    authed_user: AuthedUser
+    team: Team
+    enterprise: Optional[str]
+    is_enterprise_install: bool
+
+
+class SlackOpenIdConnectUserInfo(BaseModel):
+    ok: bool
+    name: str
+    picture: str

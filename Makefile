@@ -22,7 +22,7 @@ deploy_server: zip_server deploy_infra
 deploy_client:
 	cd client && npm run build
 	cd client && aws s3 sync ./build/ s3://yyjtechjobboard.ca
-	cd client && aws cloudfront create-invalidation --distribution-id=E231GMI5QVPFBH --paths=/index.html
+	cd client && aws cloudfront create-invalidation --distribution-id=EP3UB04VUQG2S --paths=/index.html
 
 
 run_local_server:
