@@ -6,6 +6,7 @@ import MainMenu from "../../components/MainMenu";
 import {useParams} from 'react-router-dom';
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router";
+import {getLocalUser} from "../../utils";
 
 export default function Company(){
     let [loading, setLoading] = useState(true)
@@ -23,6 +24,7 @@ export default function Company(){
 
     if(loading) {
         return <Container>
+            <MainMenu highlight={"Companies"}/>
             <h1>Company Details</h1>
             <JobPostingPlaceholder/>
             <JobPostingPlaceholder/>
@@ -42,17 +44,16 @@ export default function Company(){
     let adminMenu = null;
 
 
-    if(company.user_id === get_user_id()){
-        adminMenu = <Segment>
+    if(company.user_id === get_user_id() || getLocalUser().isAdmin ){
+        adminMenu = <span style={{float:"right"}}>
             <Button as={Link} to={"/company/"+company.id+"/edit"}>Edit</Button>
             <Button onClick={() => setDeleteModalOpen(true)}>Delete</Button>
-        </Segment>
+        </span>
     }
     return <>
         <MainMenu highlight={"Companies"}/>
         <Container>
-           {adminMenu}
-            <h1>{company.name}</h1>
+            <h1>{company.name}{adminMenu}</h1>
             <Segment>{company.description}</Segment>
             {logoImg}
         </Container>

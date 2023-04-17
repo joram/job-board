@@ -4,20 +4,15 @@ export function serverUrl(path) {
 
   return 'https://d9fr3dwx8e.execute-api.ca-central-1.amazonaws.com/prod'+path
 }
+function getPosition(string, subString, index) {
+    return string.split(subString, index).join(subString).length;
+}
 
 export function clientUrl(path) {
-
-    // https://d3hyaukyxs28vm.cloudfront.net/
-    if(window.location.href.search("/") === 3){
-        path = path.substring(1, path.length)
-        let fullUrl = window.location.href+path
-        return fullUrl
-    }
-
-    // https://d3hyaukyxs28vm.cloudfront.net/companies
-    let rootUrl = window.location.href.replace(window.location.pathname, '')
-    let fullUrl = rootUrl+path
-    return fullUrl
+    let url = window.location.href
+    url = url.substring(0, getPosition(url, '/', 3))
+    url = url+path
+    return url
 }
 
 export function getLocalUser(){
@@ -27,4 +22,8 @@ export function getLocalUser(){
     }
     let user = JSON.parse(user_str)
     return user
+}
+
+export function truncate(str, n){
+  return (str.length > n) ? str.slice(0, n-1) + '...' : str;
 }

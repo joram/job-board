@@ -23,3 +23,8 @@ except Exception as e:
 SLACK_CLIENT_ID = os.environ.get("SLACK_CLIENT_ID")
 SLACK_CLIENT_SECRET = os.environ.get("SLACK_CLIENT_SECRET")
 SENTRY_DSN = os.environ.get("SENTRY_DSN")
+
+GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
+
+ADMIN_EMAILS = os.environ.get("ADMIN_EMAILS", "john.c.oram@gmail.com").split(",")
+FRONTEND_URL = os.environ.get("FRONTEND_URL", "https://localhost:3000")

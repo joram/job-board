@@ -35,6 +35,11 @@ async def put_company(company_id: str, company: Company, user=Depends(get_logged
 
 @router.delete("/company/{company_id}", tags=["authentication required"])
 async def delete_company(company_id: str, user=Depends(get_logged_in_user)) -> None:
+    company = get_company_by_id(company_id)
+    is_valid = company.user_id == user.id or user.is_admin
+    print(company.user_id == user.id, user.is_admin, is_valid)
+    if not is_valid:
+        raise HTTPException(status_code=403, detail="Invalid Auth Token")
     return delete_my_company(company_id)
 
 

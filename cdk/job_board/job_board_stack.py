@@ -4,6 +4,7 @@ from aws_cdk import (
     Duration,
     Stack,
     aws_apigateway,
+    aws_certificatemanager,
     aws_cloudfront,
     aws_cloudfront_origins,
     aws_dynamodb,
@@ -15,11 +16,11 @@ from constructs import Construct
 
 
 class JobBoardStack(Stack):
-    def __init__(self, scope: Construct, uid: str, cert, **kwargs) -> None:
+    def __init__(self, scope: Construct, uid: str, cert_arn, **kwargs) -> None:
         super().__init__(scope, uid, **kwargs)
         tables = self.create_tables()
         self.create_lambda_gateway(tables)
-        self.cloudfront_distribution = self.create_cloudfront(cert)
+        self.cloudfront_distribution = self.create_cloudfront(cert_arn)
 
     def create_lambda_gateway(self, tables: List[aws_dynamodb.Table]) -> None:
         secrets = aws_secretsmanager.Secret(self, "Secrets", secret_name="job_board_secrets")
@@ -90,7 +91,7 @@ class JobBoardStack(Stack):
 
         return [user_table, auth_token_table, company_table, posting_table]
 
-    def create_cloudfront(self, cert) -> aws_cloudfront.Distribution:
+    def create_cloudfront(self, cert_arn) -> aws_cloudfront.Distribution:
         s3_bucket = aws_s3.Bucket(
             self,
             "yyj-job-board-bucket",
@@ -98,7 +99,11 @@ class JobBoardStack(Stack):
         )
         s3_bucket.grant_public_access()
 
-        #
+        cert = aws_certificatemanager.Certificate.from_certificate_arn(
+            self,
+            "yyj-job-board-cert",
+            certificate_arn=cert_arn,
+        )
 
         distribution = aws_cloudfront.Distribution(
             self,

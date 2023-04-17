@@ -6,19 +6,25 @@ let config = new Configuration({
 })
 let api = new PublicApi(config)
 let privateApi = new AuthenticationRequiredApi(config)
-let user = JSON.parse(sessionStorage.getItem("user"))
 
-export function get_access_token() {
-    return user.access_token
+function get_user() {
+    let user = JSON.parse(sessionStorage.getItem("user"))
+    return user
+}
+
+export function get_accessToken() {
+    return get_user().accessToken
 }
 
 export function get_user_id() {
-    return user.id
+    let user = get_user()
+    return user !== null ? user.id : 0
 }
 
 let options = {
     withCredentials: false,
 }
+
 
 export async function get_all_companies() {
     return api.getCompaniesCompaniesGet(options).then((res) => {
@@ -28,38 +34,45 @@ export async function get_all_companies() {
 
 
 export async function get_my_companies() {
-    return privateApi.getMyCompaniesUserUserIdCompaniesGet(user.id, user.access_token).then((res) => {
+    let user = get_user()
+    console.log(user)
+    return privateApi.getMyCompaniesUserUserIdCompaniesGet(user.id, user.accessToken).then((res) => {
         return res.data
     })
 }
 
 export async function get_my_job_postings() {
-    return privateApi.getMyPostingsUserUserIdPostingsGet(user.id, user.access_token).then((res) => {
+    let user = get_user()
+    return privateApi.getMyPostingsUserUserIdPostingsGet(user.id, user.accessToken).then((res) => {
         return res.data
     })
 }
 
 export async function create_company(company) {
-    return privateApi.postCompanyCompanyPost(company, user.access_token).then((res) => {
+    let user = get_user()
+    return privateApi.postCompanyCompanyPost(company, user.accessToken).then((res) => {
         return res.data
     })
 }
 
 export async function update_company(company) {
-    return privateApi.putCompanyCompanyCompanyIdPut(company.id, company, user.access_token).then((res) => {
+    let user = get_user()
+    return privateApi.putCompanyCompanyCompanyIdPut(company.id, company, user.accessToken).then((res) => {
         console.log(res)
         return res
     })
 }
 
 export async function delete_company(company_id) {
-    return privateApi.deleteCompanyCompanyCompanyIdDelete(company_id, user.access_token).then((res) => {
+    let user = get_user()
+    return privateApi.deleteCompanyCompanyCompanyIdDelete(company_id, user.accessToken).then((res) => {
         return res
     })
 }
 
 export function create_job_posting(job_posting){
-    return privateApi.post(job_posting, user.access_token).then((res) => {
+    let user = get_user()
+    return privateApi.post(job_posting, user.accessToken).then((res) => {
         return res.data
     })
 }

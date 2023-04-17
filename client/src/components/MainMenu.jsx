@@ -1,27 +1,27 @@
 import {Dropdown, Menu} from "semantic-ui-react";
 import React, {useState} from "react";
-import {clientUrl, getLocalUser} from "../utils";
-import SlackLogin from "./SlackLogin";
+import {getLocalUser} from "../utils";
 import {useNavigate} from "react-router";
 import {Link} from "react-router-dom";
 
+
 function ProfileMenu() {
     let user = getLocalUser()
-    if(user == null){
-        return <SlackLogin
-        redirectUrl={clientUrl('/api/v1/auth/slack')}
-        slackClientId='735117853430.5091553447984'
-        slackUserScope='openid profile'
-      />
+    if(user === null){
+        return <>
+            <Menu.Item as={Link} to="/login" >Login</Menu.Item>
+        </>
     }
+    return <>
+           <Dropdown item text={user.name}>
+           <Dropdown.Menu>
+             <Dropdown.Item as={Link} to="/my/companies" >My Companies</Dropdown.Item>
+             <Dropdown.Item as={Link} to="/my/job_postings" >My Job Postings</Dropdown.Item>
+             <Dropdown.Item as={Link} to="/logout" >Logout</Dropdown.Item>
+           </Dropdown.Menu>
+         </Dropdown>
 
-    return <Dropdown item text={user.name}>
-          <Dropdown.Menu>
-            <Dropdown.Item as={Link} to="/my/companies" >My Companies</Dropdown.Item>
-            <Dropdown.Item as={Link} to="/my/job_postings" >My Job Postings</Dropdown.Item>
-            <Dropdown.Item as={Link} to="/logout" >Logout</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+    </>
 }
 export default function MainMenu(props) {
     let {highlight} = props

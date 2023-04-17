@@ -23,6 +23,7 @@ class User(BaseModel):
     name: str
     profile_picture: str
     access_token: Optional[str]
+    is_admin: Optional[bool]
 
 
 class AuthToken(BaseModel):

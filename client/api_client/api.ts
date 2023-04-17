@@ -882,14 +882,17 @@ export const PublicApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * 
          * @summary Get Login
-         * @param {string} code 
+         * @param {string} accessToken 
+         * @param {string} scope 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLoginLoginGet: async (code: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'code' is not null or undefined
-            assertParamExists('getLoginLoginGet', 'code', code)
-            const localVarPath = `/login`;
+        getLoginAuthGoogleGet: async (accessToken: string, scope: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'accessToken' is not null or undefined
+            assertParamExists('getLoginAuthGoogleGet', 'accessToken', accessToken)
+            // verify required parameter 'scope' is not null or undefined
+            assertParamExists('getLoginAuthGoogleGet', 'scope', scope)
+            const localVarPath = `/auth/google`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -901,8 +904,12 @@ export const PublicApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (code !== undefined) {
-                localVarQueryParameter['code'] = code;
+            if (accessToken !== undefined) {
+                localVarQueryParameter['access_token'] = accessToken;
+            }
+
+            if (scope !== undefined) {
+                localVarQueryParameter['scope'] = scope;
             }
 
 
@@ -1025,12 +1032,13 @@ export const PublicApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Get Login
-         * @param {string} code 
+         * @param {string} accessToken 
+         * @param {string} scope 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getLoginLoginGet(code: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getLoginLoginGet(code, options);
+        async getLoginAuthGoogleGet(accessToken: string, scope: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLoginAuthGoogleGet(accessToken, scope, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1096,12 +1104,13 @@ export const PublicApiFactory = function (configuration?: Configuration, basePat
         /**
          * 
          * @summary Get Login
-         * @param {string} code 
+         * @param {string} accessToken 
+         * @param {string} scope 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLoginLoginGet(code: string, options?: any): AxiosPromise<User> {
-            return localVarFp.getLoginLoginGet(code, options).then((request) => request(axios, basePath));
+        getLoginAuthGoogleGet(accessToken: string, scope: string, options?: any): AxiosPromise<User> {
+            return localVarFp.getLoginAuthGoogleGet(accessToken, scope, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1170,13 +1179,14 @@ export class PublicApi extends BaseAPI {
     /**
      * 
      * @summary Get Login
-     * @param {string} code 
+     * @param {string} accessToken 
+     * @param {string} scope 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PublicApi
      */
-    public getLoginLoginGet(code: string, options?: AxiosRequestConfig) {
-        return PublicApiFp(this.configuration).getLoginLoginGet(code, options).then((request) => request(this.axios, this.basePath));
+    public getLoginAuthGoogleGet(accessToken: string, scope: string, options?: AxiosRequestConfig) {
+        return PublicApiFp(this.configuration).getLoginAuthGoogleGet(accessToken, scope, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
