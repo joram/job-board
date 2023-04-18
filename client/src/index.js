@@ -13,11 +13,13 @@ import Logout from "./pages/Logout";
 import Login from "./pages/Login";
 import MyCompanies from "./pages/company/MyCompanies";
 import CreateCompany from "./pages/company/CreateCompany";
+import EditJobPosting from "./pages/job_posting/EditJobPosting";
 import Company from "./pages/company/Company";
 import EditCompany from "./pages/company/EditCompany";
 import MyJobPostings from "./pages/job_posting/MyJobPostings";
 import CreateJobPosting from "./pages/job_posting/CreateJobPosting";
 import {GoogleOAuthProvider} from '@react-oauth/google';
+import JobPosting from "./pages/job_posting/JobPosting";
 
 
 const router = createBrowserRouter([
@@ -27,6 +29,9 @@ const router = createBrowserRouter([
   }, {
     path: "/companies",
     element: <Companies />,
+  }, {
+    path: "/company/create",
+    element: <CreateCompany />,
   }, {
     path: "/company/:company_id",
     element: <Company/>,
@@ -43,8 +48,11 @@ const router = createBrowserRouter([
     path: "/job_posting/create",
     element: <CreateJobPosting />,
   }, {
-    path: "/company/create",
-    element: <CreateCompany />,
+    path: "/job_posting/:job_posting_id/edit",
+    element: <EditJobPosting />,
+  }, {
+    path: "/job_posting/:job_posting_id",
+    element: <JobPosting />,
   }, {
     path: "/api/v1/auth/slack",
     element: <SlackAuth />,

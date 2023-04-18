@@ -4,7 +4,7 @@ import settings
 
 
 def prefixed_uuid(prefix: str) -> str:
-    return prefix + str(uuid4())
+    return str(prefix + str(uuid4()))
 
 
 def frontend_url(path: str) -> str:

@@ -170,6 +170,12 @@ export interface JobPosting {
      * @type {string}
      * @memberof JobPosting
      */
+    'requirements': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof JobPosting
+     */
     'benefits': string;
     /**
      * 
@@ -204,49 +210,6 @@ export interface JobPosting {
  * @interface LocationInner
  */
 export interface LocationInner {
-}
-/**
- * 
- * @export
- * @interface User
- */
-export interface User {
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    'id'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    'created_at'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    'updated_at'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    'name': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    'profile_picture': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    'access_token'?: string;
 }
 /**
  * 
@@ -293,6 +256,45 @@ export const AuthenticationRequiredApiAxiosParamCreator = function (configuratio
             assertParamExists('deleteCompanyCompanyCompanyIdDelete', 'companyId', companyId)
             const localVarPath = `/company/{company_id}`
                 .replace(`{${"company_id"}}`, encodeURIComponent(String(companyId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (xApiKey != null) {
+                localVarHeaderParameter['X-Api-Key'] = String(xApiKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete Job Posting
+         * @param {string} postingId 
+         * @param {string} [xApiKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteJobPostingJobPostingPostingIdDelete: async (postingId: string, xApiKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'postingId' is not null or undefined
+            assertParamExists('deleteJobPostingJobPostingPostingIdDelete', 'postingId', postingId)
+            const localVarPath = `/job_posting/{posting_id}`
+                .replace(`{${"posting_id"}}`, encodeURIComponent(String(postingId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -391,6 +393,51 @@ export const AuthenticationRequiredApiAxiosParamCreator = function (configuratio
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Patch Job Posting
+         * @param {string} postingId 
+         * @param {JobPosting} jobPosting 
+         * @param {string} [xApiKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        patchJobPostingJobPostingPostingIdPatch: async (postingId: string, jobPosting: JobPosting, xApiKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'postingId' is not null or undefined
+            assertParamExists('patchJobPostingJobPostingPostingIdPatch', 'postingId', postingId)
+            // verify required parameter 'jobPosting' is not null or undefined
+            assertParamExists('patchJobPostingJobPostingPostingIdPatch', 'jobPosting', jobPosting)
+            const localVarPath = `/job_posting/{posting_id}`
+                .replace(`{${"posting_id"}}`, encodeURIComponent(String(postingId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (xApiKey != null) {
+                localVarHeaderParameter['X-Api-Key'] = String(xApiKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(jobPosting, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -548,6 +595,18 @@ export const AuthenticationRequiredApiFp = function(configuration?: Configuratio
         },
         /**
          * 
+         * @summary Delete Job Posting
+         * @param {string} postingId 
+         * @param {string} [xApiKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteJobPostingJobPostingPostingIdDelete(postingId: string, xApiKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteJobPostingJobPostingPostingIdDelete(postingId, xApiKey, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Get My Companies
          * @param {string} userId 
          * @param {string} [xApiKey] 
@@ -568,6 +627,19 @@ export const AuthenticationRequiredApiFp = function(configuration?: Configuratio
          */
         async getMyPostingsUserUserIdPostingsGet(userId: string, xApiKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<JobPosting>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getMyPostingsUserUserIdPostingsGet(userId, xApiKey, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Patch Job Posting
+         * @param {string} postingId 
+         * @param {JobPosting} jobPosting 
+         * @param {string} [xApiKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async patchJobPostingJobPostingPostingIdPatch(postingId: string, jobPosting: JobPosting, xApiKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<JobPosting>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.patchJobPostingJobPostingPostingIdPatch(postingId, jobPosting, xApiKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -630,6 +702,17 @@ export const AuthenticationRequiredApiFactory = function (configuration?: Config
         },
         /**
          * 
+         * @summary Delete Job Posting
+         * @param {string} postingId 
+         * @param {string} [xApiKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteJobPostingJobPostingPostingIdDelete(postingId: string, xApiKey?: string, options?: any): AxiosPromise<any> {
+            return localVarFp.deleteJobPostingJobPostingPostingIdDelete(postingId, xApiKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Get My Companies
          * @param {string} userId 
          * @param {string} [xApiKey] 
@@ -649,6 +732,18 @@ export const AuthenticationRequiredApiFactory = function (configuration?: Config
          */
         getMyPostingsUserUserIdPostingsGet(userId: string, xApiKey?: string, options?: any): AxiosPromise<Array<JobPosting>> {
             return localVarFp.getMyPostingsUserUserIdPostingsGet(userId, xApiKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Patch Job Posting
+         * @param {string} postingId 
+         * @param {JobPosting} jobPosting 
+         * @param {string} [xApiKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        patchJobPostingJobPostingPostingIdPatch(postingId: string, jobPosting: JobPosting, xApiKey?: string, options?: any): AxiosPromise<JobPosting> {
+            return localVarFp.patchJobPostingJobPostingPostingIdPatch(postingId, jobPosting, xApiKey, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -709,6 +804,19 @@ export class AuthenticationRequiredApi extends BaseAPI {
 
     /**
      * 
+     * @summary Delete Job Posting
+     * @param {string} postingId 
+     * @param {string} [xApiKey] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthenticationRequiredApi
+     */
+    public deleteJobPostingJobPostingPostingIdDelete(postingId: string, xApiKey?: string, options?: AxiosRequestConfig) {
+        return AuthenticationRequiredApiFp(this.configuration).deleteJobPostingJobPostingPostingIdDelete(postingId, xApiKey, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Get My Companies
      * @param {string} userId 
      * @param {string} [xApiKey] 
@@ -731,6 +839,20 @@ export class AuthenticationRequiredApi extends BaseAPI {
      */
     public getMyPostingsUserUserIdPostingsGet(userId: string, xApiKey?: string, options?: AxiosRequestConfig) {
         return AuthenticationRequiredApiFp(this.configuration).getMyPostingsUserUserIdPostingsGet(userId, xApiKey, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Patch Job Posting
+     * @param {string} postingId 
+     * @param {JobPosting} jobPosting 
+     * @param {string} [xApiKey] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthenticationRequiredApi
+     */
+    public patchJobPostingJobPostingPostingIdPatch(postingId: string, jobPosting: JobPosting, xApiKey?: string, options?: AxiosRequestConfig) {
+        return AuthenticationRequiredApiFp(this.configuration).patchJobPostingJobPostingPostingIdPatch(postingId, jobPosting, xApiKey, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -881,50 +1003,6 @@ export const PublicApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary Get Login
-         * @param {string} accessToken 
-         * @param {string} scope 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getLoginAuthGoogleGet: async (accessToken: string, scope: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accessToken' is not null or undefined
-            assertParamExists('getLoginAuthGoogleGet', 'accessToken', accessToken)
-            // verify required parameter 'scope' is not null or undefined
-            assertParamExists('getLoginAuthGoogleGet', 'scope', scope)
-            const localVarPath = `/auth/google`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (accessToken !== undefined) {
-                localVarQueryParameter['access_token'] = accessToken;
-            }
-
-            if (scope !== undefined) {
-                localVarQueryParameter['scope'] = scope;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary Get Posting
          * @param {string} postingId 
          * @param {*} [options] Override http request option.
@@ -987,6 +1065,36 @@ export const PublicApiAxiosParamCreator = function (configuration?: Configuratio
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary Post Auth Google
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postAuthGoogleAuthGooglePost: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/auth/google`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -1031,18 +1139,6 @@ export const PublicApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Get Login
-         * @param {string} accessToken 
-         * @param {string} scope 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getLoginAuthGoogleGet(accessToken: string, scope: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getLoginAuthGoogleGet(accessToken, scope, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @summary Get Posting
          * @param {string} postingId 
          * @param {*} [options] Override http request option.
@@ -1060,6 +1156,16 @@ export const PublicApiFp = function(configuration?: Configuration) {
          */
         async getPostingsPostingsGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<JobPosting>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getPostingsPostingsGet(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Post Auth Google
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async postAuthGoogleAuthGooglePost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postAuthGoogleAuthGooglePost(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1103,17 +1209,6 @@ export const PublicApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary Get Login
-         * @param {string} accessToken 
-         * @param {string} scope 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getLoginAuthGoogleGet(accessToken: string, scope: string, options?: any): AxiosPromise<User> {
-            return localVarFp.getLoginAuthGoogleGet(accessToken, scope, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Get Posting
          * @param {string} postingId 
          * @param {*} [options] Override http request option.
@@ -1130,6 +1225,15 @@ export const PublicApiFactory = function (configuration?: Configuration, basePat
          */
         getPostingsPostingsGet(options?: any): AxiosPromise<Array<JobPosting>> {
             return localVarFp.getPostingsPostingsGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Post Auth Google
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postAuthGoogleAuthGooglePost(options?: any): AxiosPromise<any> {
+            return localVarFp.postAuthGoogleAuthGooglePost(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1178,19 +1282,6 @@ export class PublicApi extends BaseAPI {
 
     /**
      * 
-     * @summary Get Login
-     * @param {string} accessToken 
-     * @param {string} scope 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof PublicApi
-     */
-    public getLoginAuthGoogleGet(accessToken: string, scope: string, options?: AxiosRequestConfig) {
-        return PublicApiFp(this.configuration).getLoginAuthGoogleGet(accessToken, scope, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @summary Get Posting
      * @param {string} postingId 
      * @param {*} [options] Override http request option.
@@ -1210,6 +1301,17 @@ export class PublicApi extends BaseAPI {
      */
     public getPostingsPostingsGet(options?: AxiosRequestConfig) {
         return PublicApiFp(this.configuration).getPostingsPostingsGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Post Auth Google
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PublicApi
+     */
+    public postAuthGoogleAuthGooglePost(options?: AxiosRequestConfig) {
+        return PublicApiFp(this.configuration).postAuthGoogleAuthGooglePost(options).then((request) => request(this.axios, this.basePath));
     }
 }
 

@@ -82,9 +82,7 @@ def get_company_by_id(company_id: str) -> Company:
 
 
 def get_all_companies() -> List[Company]:
-    response = dynamodb.scan(
-        TableName="jb-companies",
-    )
+    response = dynamodb.scan(TableName="jb-companies")
     companies = []
     for item in response["Items"]:
         company = Company(

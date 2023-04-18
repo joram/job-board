@@ -1,9 +1,17 @@
 import React, {useEffect, useState} from 'react'
 import {Button, Container, Form, Table} from "semantic-ui-react";
 import MainMenu from "../../components/MainMenu";
-import {create_job_posting, get_my_companies, get_user_id} from "../../api";
+import {
+    create_job_posting,
+    get_company_by_id,
+    get_job_posting,
+    get_my_companies,
+    get_user_id,
+    update_job_posting
+} from "../../api";
+import {useParams} from 'react-router-dom';
 
-export default function CreateJobPosting(){
+export default function EditJobPosting(){
     let [name, setName] = useState("")
     let [description, setDescription] = useState("")
     let [requirements, setRequirements] = useState("")
@@ -14,9 +22,11 @@ export default function CreateJobPosting(){
     let [maximumSalary, setMaximumSalary] = useState(0)
     let [salaryCurrency, setSalaryCurrency] = useState("")
     let [companyOptions, setCompanyOptions] = useState([])
+    let { job_posting_id } = useParams();
 
     function submit(){
-        create_job_posting({
+        update_job_posting({
+            id: job_posting_id,
             user_id: get_user_id(),
             job_title: name,
             description: description,
@@ -33,6 +43,18 @@ export default function CreateJobPosting(){
     }
 
     useEffect(() => {
+        get_job_posting(job_posting_id).then(job_posting => {
+            console.log(job_posting)
+            setMinimumSalary(job_posting.min_salary)
+            setMaximumSalary(job_posting.max_salary)
+            setSalaryCurrency(job_posting.salary_currency)
+            setBenefits(job_posting.benefits)
+            setRequirements(job_posting.requirements)
+            setName(job_posting.job_title)
+            setDescription(job_posting.description)
+            setApplicationUrl(job_posting.application_url)
+            setCompanyId(job_posting.company.id)
+        })
         get_my_companies().then(companies => {
             let options = companies.map(company => {
                 return {
@@ -74,7 +96,7 @@ export default function CreateJobPosting(){
                     </Table.Cell>
                 </Table.Row>
             </Table>
-            <Button type='submit'>Submit</Button>
+            <Button type='submit'>Save</Button>
           </Form>
     </Container>
         </>

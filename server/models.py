@@ -5,7 +5,7 @@ from typing import Optional
 from pydantic import BaseModel as PydanticBaseModel
 
 
-class Currency(enum.Enum):
+class Currency(str, enum.Enum):
     CAD = "CAD"
     USD = "USD"
 
@@ -50,6 +50,7 @@ class JobPosting(BaseModel):
 
     job_title: str
     description: str
+    requirements: str
     benefits: str
     application_url: str
     min_salary: int

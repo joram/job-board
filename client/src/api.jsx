@@ -72,11 +72,22 @@ export async function delete_company(company_id) {
 
 export function create_job_posting(job_posting){
     let user = get_user()
-    return privateApi.post(job_posting, user.accessToken).then((res) => {
+    return privateApi.postJobPostingJobPostingPost(job_posting, user.accessToken).then((res) => {
         return res.data
     })
 }
 
+export function update_job_posting(job_posting){
+    let user = get_user()
+    return privateApi.patchJobPostingJobPostingPostingIdPatch(job_posting.id, job_posting, user.accessToken).then((res) => {
+        return res.data
+    })
+}
+export function get_job_posting(job_posting_id){
+    return api.getPostingPostingPostingIdGet(job_posting_id, options).then((res) => {
+        return res.data
+    })
+}
 
 export async function get_all_job_postings() {
     return api.getPostingsPostingsGet(options).then((res) => {
@@ -87,5 +98,12 @@ export async function get_all_job_postings() {
 export async function get_company_by_id(id) {
     return api.getCompanyCompanyCompanyIdGet(id, options).then((res) => {
         return res.data
+    })
+}
+
+export async function delete_job_posting(id) {
+    let user = get_user()
+    return privateApi.deleteJobPostingJobPostingPostingIdDelete(id, user.accessToken).then((res) => {
+        return res
     })
 }

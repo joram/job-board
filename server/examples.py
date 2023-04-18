@@ -16,6 +16,7 @@ example_job_posting = JobPosting(
     ),
     job_title="Software Engineer",
     description="We are looking for a software engineer to join our team",
+    requirements="Requirements, etc.",
     benefits="Health benefits, 401k, etc.",
     application_url="https://www.google.com",
     min_salary=100000,

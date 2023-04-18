@@ -19,7 +19,7 @@ export default function Login() {
 
     useEffect(() => {
         if(accessToken === null || name === null || profilePicture === null){
-            return null
+            return
         }
         sessionStorage.setItem("user", JSON.stringify({
             accessToken: accessToken,
@@ -38,7 +38,7 @@ export default function Login() {
         You should only need to create an account or login if you want to:
     </Container>
       <Container>
-    <span style={{textAlign:"center"}}>
+    <span>
 
         <ul>
             <li>create job postings</li>
@@ -58,11 +58,6 @@ export default function Login() {
              data-text="sign_in_with"
              data-shape="rectangular"
              data-logo_alignment="left"
-                data-locale="en"
-                data-width="240"
-                data-height="50"
-                data-longtitle="true"
-             style={{alignContent: "center"}}
         >
         </div>
 
