@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {JobPostingPlaceholder} from "../../components/JobPostingCard";
 import {get_my_companies} from "../../api";
-import {Button, Card, Container, Divider} from "semantic-ui-react";
+import {Button, Card, Container} from "semantic-ui-react";
 import CompanyCard from "../../components/CompanyCard";
 import MainMenu from "../../components/MainMenu";
 import {Link} from "react-router-dom";

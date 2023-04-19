@@ -1,14 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {Button, Container, Form, Table} from "semantic-ui-react";
 import MainMenu from "../../components/MainMenu";
-import {
-    create_job_posting,
-    get_company_by_id,
-    get_job_posting,
-    get_my_companies,
-    get_user_id,
-    update_job_posting
-} from "../../api";
+import {get_job_posting, get_my_companies, get_user_id, update_job_posting} from "../../api";
 import {useParams} from 'react-router-dom';
 
 export default function EditJobPosting(){
@@ -70,7 +63,7 @@ export default function EditJobPosting(){
             })
             setCompanyOptions(options)
         })
-    }, [])
+    }, [job_posting_id])
 
     return <>
         <MainMenu />

@@ -1,7 +1,6 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import JobPosting, {JobPostingPlaceholder} from "../../components/JobPostingCard";
-import {useState} from "react";
-import {get_all_companies, get_all_job_postings} from "../../api";
+import {get_all_job_postings} from "../../api";
 import {Card, Container} from "semantic-ui-react";
 import MainMenu from "../../components/MainMenu";
 

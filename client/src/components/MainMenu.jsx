@@ -1,4 +1,4 @@
-import {Dropdown, Menu} from "semantic-ui-react";
+import {Container, Dropdown, Menu, Message} from "semantic-ui-react";
 import React, {useState} from "react";
 import {getLocalUser} from "../utils";
 import {useNavigate} from "react-router";
@@ -32,7 +32,8 @@ export default function MainMenu(props) {
         navigate(url)
     }
 
-    return (
+    return (<>
+
      <Menu pointing secondary>
        <Menu.Item
          name='Job Postings'
@@ -49,6 +50,15 @@ export default function MainMenu(props) {
        <Menu.Item position='right'>
          <ProfileMenu/>
        </Menu.Item>
+
      </Menu>
+            <Container>
+                <Message negative>
+     <Message.Header>Under Active Development</Message.Header>
+       We are actively developing this site. The data is test data, and the site is not yet ready for production use.
+     </Message>
+            </Container>
+            <br/>
+    </>
     )
 }
